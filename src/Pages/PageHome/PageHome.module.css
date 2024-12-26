@@ -1,0 +1,40 @@
+.main_panel {
+	margin: 0.75em 1em;
+}
+
+.main_panel :global(.panel__title_bar) {
+	background-color: var(--color-gray-2);
+	height: 2.25em;
+}
+
+.main_panel :global(.panel__title) {
+	font-weight: 600;
+	font-size: 0.938em;
+}
+
+.main_panel :global(.panel__body) {
+	padding: 0;
+}
+
+.filters_panel {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin: 0.75em 1em;
+}
+
+.right_side {
+	display: flex;
+	align-items: center;
+	gap: 1em;
+}
+
+.separator {
+	height: 1.875em;
+	width: 0.063em;
+	background-color: var(--color-black-15);
+}
+
+.root {
+	overflow: auto;
+}

@@ -1,0 +1,16 @@
+.root {
+	font-size: 12px;
+	font-weight: bold;
+	padding: 10px;
+	border-radius:50%;
+	border: 2px solid var(--color-white-secondary);
+	color: var(--color-white-secondary);
+	cursor: pointer;
+	transition: all 0.3s ease-in-out;
+}
+
+.root:hover {
+	border: 2px solid var(--color-orange-font-title);
+	color: var(--color-orange-font-title);
+
+}

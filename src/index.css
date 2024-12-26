@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Protest+Riot&family=Protest+Guerrilla&family=Raleway:ital,wght@0,200;0,300;0,400;0,500;0,600;1,200;1,300;1,400;1,500;1,600&display=swap');
+
+:root {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-text-size-adjust: 100%;
+	font-family: 'Raleway', sans-serif;
+
+	font-size: 16px;
+
+	--color-black-bg: #1D1D1D;
+	--color-white-font-title: #F8F8F8;
+	--color-orange-font-title: #EF8451;
+	--color-white-secondary: #b8b8b8;
+}
+
+body {
+	margin: 0;
+	display: flex;
+	min-width: 320px;
+	min-height: 100vh;
+	background-color: var(--color-black-bg);
+	color: var(--color-white-font-title);
+	overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+	width: 0.25em;
+}
+
+::-webkit-scrollbar-track {
+	background-color: #f5f5f5;
+	border-radius: 0.125em;
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: #eaeaea;
+	border-radius: 0.125em;
+}
+
+#root {
+	flex-grow: 1;
+	height: 100vh;
+}
+
+.page {
+}
+
+input, button {
+	font-family: 'Raleway', sans-serif;
+	
+}

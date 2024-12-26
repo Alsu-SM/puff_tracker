@@ -1,0 +1,45 @@
+.button {
+    display: flex;
+    padding: 12px 20px;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 30px;
+    border: none;
+    background: transparent;
+    line-height: 24px;
+    border: 2px solid var(--color-orange-font-title);
+   
+    z-index: 1;
+    font-size: 16px;
+    font-weight: 600;
+    outline: none;
+    width: fit-content;
+    position: relative;
+
+    cursor: pointer;
+    overflow: hidden;
+		color: var(--color-white-font-title);
+}
+
+.button__content {
+	z-index: 1;
+}
+.button__background {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 0px;
+	height: 0px;
+	border-radius: 50%;
+	background: var(--color-orange-font-title);
+	opacity: 0.4;
+	z-index: 1;
+	transition: all 0.4s ease-in-out;
+}
+
+.button:hover .button__background {
+	width: 200px;
+  height: 200px;
+}
