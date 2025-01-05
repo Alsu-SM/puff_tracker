@@ -1,0 +1,8 @@
+.root {
+	width: var(--root-width);
+	height: 100dvh;
+	position: relative;
+	margin-left: auto;
+	overflow: hidden;
+	background: var(--color-black-bg);
+}

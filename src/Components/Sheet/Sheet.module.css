@@ -1,6 +1,6 @@
 .sheet {
 	height: 100dvh;
-	width: 100vw;
+	width: var(--root-width);
 	background: var(--color-black-bg);
 	position: fixed;
 	top: 0;
