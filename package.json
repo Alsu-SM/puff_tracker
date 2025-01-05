@@ -3,12 +3,15 @@
 	"private": true,
 	"version": "0.0.0",
 	"type": "module",
+	"homepage": "https://alsu-sm.github.io/puff_tracker",
 	"scripts": {
 		"dev": "vite",
 		"build": "tsc && vite build",
 		"lint:fix": "eslint --report-unused-disable-directives --max-warnings 0 --fix .",
 		"lint:format": "prettier --log-level warn --write \"./**/*.{ts,tsx,css,md,json}\"",
-		"lint": "yarn lint:format && yarn lint:fix"
+		"lint": "yarn lint:format && yarn lint:fix",
+		"predeploy": "yarn build",
+		"deploy": "gh-pages -d build"
 	},
 	"packageManager": "yarn@4.0.2",
 	"dependencies": {
@@ -43,7 +46,8 @@
 		"typescript": "5.3.3",
 		"vite": "5.0.10",
 		"vite-plugin-mkcert": "1.17.1",
-		"vite-plugin-pwa": "0.17.5"
+		"vite-plugin-pwa": "0.17.5",
+		"gh-pages": "^5.0.0"
 	},
 	"workspaces": [
 		"packages/*"
