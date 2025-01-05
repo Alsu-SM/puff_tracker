@@ -1564,16 +1564,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@gsap/react@npm:^2.1.0":
-  version: 2.1.0
-  resolution: "@gsap/react@npm:2.1.0"
-  dependencies:
-    gsap: "npm:^3.12.4"
-    react: "npm:>=16"
-  checksum: 00ec2d2e312aae8ba56d323e373b70255e67b3825490c92087a18b02405711b31cfe7569e8c9eaf342b5b5c89e6716c6e16e1825ff751aa834c3ce9134f95b73
-  languageName: node
-  linkType: hard
-
 "@humanwhocodes/config-array@npm:^0.11.13":
   version: 0.11.14
   resolution: "@humanwhocodes/config-array@npm:0.11.14"
@@ -1838,6 +1828,14 @@ __metadata:
   checksum: b52b3fd8af307a1868846991f8376548a790814b20639dee1110271a768c0489081970df893ca2230f6285066003230d22f5877eeac90418971a475c79808241
   languageName: node
   linkType: hard
+
+"@packages/charts@npm:*, @packages/charts@workspace:packages/charts":
+  version: 0.0.0-use.local
+  resolution: "@packages/charts@workspace:packages/charts"
+  dependencies:
+    date-fns: "npm:4.1.0"
+  languageName: unknown
+  linkType: soft
 
 "@pkgjs/parseargs@npm:^0.11.0":
   version: 0.11.0
@@ -2109,7 +2107,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:^18.2.19":
+"@types/react-dom@npm:18.2.19":
   version: 18.2.19
   resolution: "@types/react-dom@npm:18.2.19"
   dependencies:
@@ -2118,7 +2116,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*, @types/react@npm:^18.2.55":
+"@types/react@npm:*, @types/react@npm:18.2.55":
   version: 18.2.55
   resolution: "@types/react@npm:18.2.55"
   dependencies:
@@ -2156,13 +2154,6 @@ __metadata:
   version: 2.0.7
   resolution: "@types/trusted-types@npm:2.0.7"
   checksum: 4c4855f10de7c6c135e0d32ce462419d8abbbc33713b31d294596c0cc34ae1fa6112a2f9da729c8f7a20707782b0d69da3b1f8df6645b0366d08825ca1522e0c
-  languageName: node
-  linkType: hard
-
-"@types/web-animations-js@npm:^2.2.16":
-  version: 2.2.16
-  resolution: "@types/web-animations-js@npm:2.2.16"
-  checksum: 16156adbdb42840da3e95a3395233b4a987fdc8aa327215645a7b80cb54f53ba12ca470935e816ee6c88d8f2a3f27b9b980bb9882c9ad6f73cc30adc1bffacf8
   languageName: node
   linkType: hard
 
@@ -2947,6 +2938,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"date-fns@npm:4.1.0":
+  version: 4.1.0
+  resolution: "date-fns@npm:4.1.0"
+  checksum: b79ff32830e6b7faa009590af6ae0fb8c3fd9ffad46d930548fbb5acf473773b4712ae887e156ba91a7b3dc30591ce0f517d69fd83bd9c38650fdc03b4e0bac8
+  languageName: node
+  linkType: hard
+
 "debug@npm:4, debug@npm:^4.1.0, debug@npm:^4.1.1, debug@npm:^4.3.1, debug@npm:^4.3.2, debug@npm:^4.3.4":
   version: 4.3.4
   resolution: "debug@npm:4.3.4"
@@ -3048,6 +3046,29 @@ __metadata:
   version: 0.2.0
   resolution: "eastasianwidth@npm:0.2.0"
   checksum: 26f364ebcdb6395f95124fda411f63137a4bfb5d3a06453f7f23dfe52502905bd84e0488172e0f9ec295fdc45f05c23d5d91baf16bd26f0fe9acd777a188dc39
+  languageName: node
+  linkType: hard
+
+"echarts-for-react@npm:^3.0.2":
+  version: 3.0.2
+  resolution: "echarts-for-react@npm:3.0.2"
+  dependencies:
+    fast-deep-equal: "npm:^3.1.3"
+    size-sensor: "npm:^1.0.1"
+  peerDependencies:
+    echarts: ^3.0.0 || ^4.0.0 || ^5.0.0
+    react: ^15.0.0 || >=16.0.0
+  checksum: a67d76d2cea6fdb8efa9e305fa998f4933053a647df13ea58b4ea0c7892a72e9afb7523a7382d98b541983e5e073adafc2c4103d7dcb88d86757c4582d45e400
+  languageName: node
+  linkType: hard
+
+"echarts@npm:^5.6.0":
+  version: 5.6.0
+  resolution: "echarts@npm:5.6.0"
+  dependencies:
+    tslib: "npm:2.3.0"
+    zrender: "npm:5.6.1"
+  checksum: 6d6a2ee88534d1ff0433e935c542237b9896de1c94959f47ebc7e0e9da26f59bf11c91ed6fc135b62ad2786c779ee12bc536fa481e60532dad5b6a2f5167e9ea
   languageName: node
   linkType: hard
 
@@ -3926,13 +3947,6 @@ __metadata:
   version: 1.4.0
   resolution: "graphemer@npm:1.4.0"
   checksum: e951259d8cd2e0d196c72ec711add7115d42eb9a8146c8eeda5b8d3ac91e5dd816b9cd68920726d9fd4490368e7ed86e9c423f40db87e2d8dfafa00fa17c3a31
-  languageName: node
-  linkType: hard
-
-"gsap@npm:^3.12.4, gsap@npm:^3.12.5":
-  version: 3.12.5
-  resolution: "gsap@npm:3.12.5"
-  checksum: cb38e89bd577fc18c9cf77e4aeb83617603b1e0fa768fe8ca1acd836fd852936722e186a88c9cf6ece42e53407edd45324be2bfe35a41f424c5f2c2b33fd1a98
   languageName: node
   linkType: hard
 
@@ -5219,7 +5233,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dom@npm:>=18.2.0, react-dom@npm:^18.2.0":
+"react-dom@npm:18.2.0":
   version: 18.2.0
   resolution: "react-dom@npm:18.2.0"
   dependencies:
@@ -5235,6 +5249,16 @@ __metadata:
   version: 16.13.1
   resolution: "react-is@npm:16.13.1"
   checksum: 33977da7a5f1a287936a0c85639fec6ca74f4f15ef1e59a6bc20338fc73dc69555381e211f7a3529b8150a1f71e4225525b41b60b52965bda53ce7d47377ada1
+  languageName: node
+  linkType: hard
+
+"react-mobile-datepicker@npm:^4.0.2":
+  version: 4.0.2
+  resolution: "react-mobile-datepicker@npm:4.0.2"
+  peerDependencies:
+    react: ">=0.14"
+    react-dom: ">=0.14"
+  checksum: b44e33c071f8e17c3729be7c13a5cd9517199255270ae7ab7dd412a6091e04b1f2020aa27e80c27c92644d0cbf587b5fd34c64fb37b38c04609c03844f49f1d0
   languageName: node
   linkType: hard
 
@@ -5269,7 +5293,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:>=16, react@npm:>=18.2.0, react@npm:^18.2.0":
+"react@npm:18.2.0":
   version: 18.2.0
   resolution: "react@npm:18.2.0"
   dependencies:
@@ -5282,15 +5306,18 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "react_vite_boilerplate@workspace:."
   dependencies:
-    "@gsap/react": "npm:^2.1.0"
+    "@packages/charts": "npm:*"
     "@types/eslint": "npm:8"
-    "@types/react": "npm:^18.2.55"
-    "@types/react-dom": "npm:^18.2.19"
+    "@types/react": "npm:18.2.55"
+    "@types/react-dom": "npm:18.2.19"
     "@typescript-eslint/eslint-plugin": "npm:6.19.0"
     "@typescript-eslint/parser": "npm:6.18.1"
     "@vitejs/plugin-basic-ssl": "npm:1.0.2"
     "@vitejs/plugin-react": "npm:4.2.1"
     clsx: "npm:2.1.0"
+    date-fns: "npm:4.1.0"
+    echarts: "npm:^5.6.0"
+    echarts-for-react: "npm:^3.0.2"
     effector: "npm:23.1.0"
     effector-react: "npm:23.1.0"
     eslint: "npm:8.56.0"
@@ -5300,12 +5327,11 @@ __metadata:
     eslint-plugin-react-hooks: "npm:4.6.0"
     eslint-plugin-react-refresh: "npm:0.4.5"
     eslint-plugin-simple-import-sort: "npm:10.0.0"
-    gsap: "npm:^3.12.5"
     prettier: "npm:3.1.1"
-    react: "npm:^18.2.0"
-    react-dom: "npm:^18.2.0"
+    react: "npm:18.2.0"
+    react-dom: "npm:18.2.0"
+    react-mobile-datepicker: "npm:^4.0.2"
     react-router-dom: "npm:6.21.3"
-    typeit-react: "npm:^2.7.1"
     typescript: "npm:5.3.3"
     vite: "npm:5.0.10"
     vite-plugin-mkcert: "npm:1.17.1"
@@ -5713,6 +5739,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"size-sensor@npm:^1.0.1":
+  version: 1.0.2
+  resolution: "size-sensor@npm:1.0.2"
+  checksum: 2cb020cd54ae7bea76a0600ba82c1a09daf51e8bec6f96355e17b4806eb24003626e3349d6cb091f821ed5fbba193f59ca59f0ea7f6dd8b75d7c20b96c465c26
+  languageName: node
+  linkType: hard
+
 "slash@npm:^3.0.0":
   version: 3.0.0
   resolution: "slash@npm:3.0.0"
@@ -6035,6 +6068,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"tslib@npm:2.3.0":
+  version: 2.3.0
+  resolution: "tslib@npm:2.3.0"
+  checksum: a845aed84e7e7dbb4c774582da60d7030ea39d67307250442d35c4c5dd77e4b44007098c37dd079e100029c76055f2a362734b8442ba828f8cc934f15ed9be61
+  languageName: node
+  linkType: hard
+
 "tslib@npm:^2.6.2":
   version: 2.6.2
   resolution: "tslib@npm:2.6.2"
@@ -6109,26 +6149,6 @@ __metadata:
     for-each: "npm:^0.3.3"
     is-typed-array: "npm:^1.1.9"
   checksum: c5163c0103d07fefc8a2ad0fc151f9ca9a1f6422098c00f695d55f9896e4d63614cd62cf8d8a031c6cee5f418e8980a533796597174da4edff075b3d275a7e23
-  languageName: node
-  linkType: hard
-
-"typeit-react@npm:^2.7.1":
-  version: 2.7.1
-  resolution: "typeit-react@npm:2.7.1"
-  dependencies:
-    react: "npm:>=18.2.0"
-    react-dom: "npm:>=18.2.0"
-    typeit: "npm:^8.8.3"
-  checksum: 8bdeb135adc58dca48d221183ee58de9cfd8974f384fd9ed7b76a53ae151473e67837f27bcd2be23d6d27ee1dde88f660ceab4dac42263d4eff4f25ddc7ad903
-  languageName: node
-  linkType: hard
-
-"typeit@npm:^8.8.3":
-  version: 8.8.3
-  resolution: "typeit@npm:8.8.3"
-  dependencies:
-    "@types/web-animations-js": "npm:^2.2.16"
-  checksum: f19dc98a55f9378e6038ed66b2fa7af23c251f042232afbe6dfcf00cd49b4f6ab00f42ee7f3f0bbbf579dfae0b0f3b3b5466bbdd70a5825aa4d9aa51cb7f01cc
   languageName: node
   linkType: hard
 
@@ -6688,5 +6708,14 @@ __metadata:
   version: 0.1.0
   resolution: "yocto-queue@npm:0.1.0"
   checksum: dceb44c28578b31641e13695d200d34ec4ab3966a5729814d5445b194933c096b7ced71494ce53a0e8820685d1d010df8b2422e5bf2cdea7e469d97ffbea306f
+  languageName: node
+  linkType: hard
+
+"zrender@npm:5.6.1":
+  version: 5.6.1
+  resolution: "zrender@npm:5.6.1"
+  dependencies:
+    tslib: "npm:2.3.0"
+  checksum: dc1cc570054640cbd8fbb7b92e6252f225319522bfe3e8dc8bf02cc02d414e00a4c8d0a6f89bfc9d96e5e9511fdca94dd3d06bf53690df2b2f12b0fc560ac307
   languageName: node
   linkType: hard

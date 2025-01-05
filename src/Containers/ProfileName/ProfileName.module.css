@@ -1,0 +1,49 @@
+.root {
+	display: flex;
+	gap: 20px;
+	align-items: center;
+	padding: 20px;
+}
+
+.avatar_wrapper {
+	border: none;
+	width: 60px;
+	height: 60px;
+	background: var(--color-white-secondary-bg);
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	overflow: hidden;
+	position: relative;
+	padding: 0;
+	border: 3px solid var(--color-white-secondary-bg);
+}
+
+.avatar {
+	object-fit: cover;
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+}
+
+.avatar_placeholder {
+	font-size: 40px;
+	color: var(--color-white-secondary);
+}
+
+.name_wrapper {
+	background: transparent;
+	border: none;
+	padding: 0;
+}
+
+.name {
+	font-size: 40px;
+}
+
+.name_placeholder {
+	font-size: 30px;
+	color: var(--color-white-secondary);
+	opacity: 0.7;
+}

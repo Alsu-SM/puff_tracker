@@ -1,0 +1,35 @@
+.tooltip {
+	background: #1d1d1dd5 !important;
+	border: none !important;
+	box-shadow: rgba(0, 0, 0, 0.4) 1px 2px 10px !important;
+	backdrop-filter: blur(2px);
+	color: var(--color-white-secondary) !important;
+}
+
+/* date */
+.tooltip > div > div > div {
+	color: var(--color-white-secondary) !important;
+	font-weight: 500 !important;
+}
+
+/* values */
+.tooltip > div > div > div > div > div > span {
+	color: var(--color-white-secondary) !important;
+	font-weight: 600 !important;
+}
+
+.no_data_message {
+	width: 100%;
+	height: 100%;
+	background: var(--color-white-secondary-bg);
+	border-radius: 20px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	font-weight: 300;
+}
+
+.message {
+	font-size: 40px;
+}

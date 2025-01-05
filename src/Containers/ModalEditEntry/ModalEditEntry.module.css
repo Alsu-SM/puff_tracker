@@ -1,0 +1,96 @@
+.content {
+	display: flex;
+	flex-direction: column;
+	gap: 0px;
+	height: 100%;
+	--padding: 20px;
+	justify-content: space-between;
+}
+
+.title {
+	text-align: center;
+	font-size: 30px;
+	font-weight: 300;
+	padding: var(--padding);
+}
+
+.datepicker {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	padding: var(--padding);
+	font-size: 20px;
+}
+
+.datepicker button {
+	font-size: 20px;
+}
+
+.counter_rows {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	padding: var(--padding);
+}
+
+.counter_row {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.counter_row_title {
+	font-size: 20px;
+	font-weight: 300;
+}
+
+.buttons_row {
+	display: flex;
+	margin-top: auto;
+	gap: 30px;
+	width: 100%;
+	padding: var(--padding);
+	box-sizing: border-box;
+}
+
+.buttons_row .button {
+	flex: 1;
+}
+
+.image_wrapper {
+	flex: 1;
+	overflow: hidden;
+	background: url('../../Assets/g3.gif') no-repeat;
+	background-size: 100%;
+	background-position: center;
+	opacity: 0.05;
+	filter: blur(1px);
+}
+
+.delete_entry_button {
+	margin: 20px;
+	width: calc(100% - 40px);
+}
+
+.modal_content {
+	width: 80dvw;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.modal_title {
+	font-size: 22px;
+}
+
+.buttons_row {
+	display: flex;
+	align-items: center;
+	gap: 20px;
+}
+
+.buttons_row .button {
+	font-size: 16px;
+	flex: 1;
+	padding: 8px;
+}

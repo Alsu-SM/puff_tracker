@@ -1,26 +1,24 @@
-import React from 'react';
 import clsx from 'clsx';
 
-import { ButtonProps } from './Button.interface';
+import { ButtonProps } from './types';
 
 import styles from './Button.module.css';
 
-function Button(props: ButtonProps) {
-	const {
-		className,
-		children,
-		onClick,
-		color = 'linear-gradient(90deg, #99FDFF 0%, #D1B3FF 100%)',
-	} = props;
+function Button({
+	className,
+	children,
+	primary,
+	disabled,
+	onClick,
+}: ButtonProps) {
 	return (
 		<button
 			type="button"
 			onClick={onClick}
-			className={clsx(styles.button, className)}
-			style={{ '--color': color } as React.CSSProperties}
+			className={clsx(styles.button, { [styles.primary]: primary }, className)}
+			disabled={disabled}
 		>
-			<div className={styles.button__background} />
-			<div className={styles.button__content}>{children}</div>
+			{children}
 		</button>
 	);
 }

@@ -1,0 +1,12 @@
+.root {
+	height: calc(100dvh - 75px);
+	padding: 10px;
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.root .chart {
+	flex: 1;
+}

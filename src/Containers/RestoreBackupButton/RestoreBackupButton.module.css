@@ -1,0 +1,45 @@
+.input_wrapper {
+	font-size: 14px;
+	padding: 8px 10px;
+	flex: 1;
+	border: 2px solid var(--color-white-secondary-bg);
+	border-radius: 16px;
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 44px;
+	box-sizing: border-box;
+}
+
+.input {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	left: 0;
+	top: 0;
+	opacity: 0;
+}
+
+.modal_content {
+	width: 80dvw;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.modal_title {
+	font-size: 22px;
+}
+
+.buttons_row {
+	display: flex;
+	align-items: center;
+	gap: 20px;
+}
+
+.buttons_row .button {
+	font-size: 16px;
+	flex: 1;
+	padding: 8px;
+}

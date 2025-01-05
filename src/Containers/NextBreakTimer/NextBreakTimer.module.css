@@ -1,0 +1,29 @@
+.root {
+	display: flex;
+	gap: 10px;
+	width: 100%;
+	padding: 0 20px;
+	box-sizing: border-box;
+	color: var(--color-white-secondary);
+	background: var(--color-black-bg);
+	line-height: 1;
+	flex-wrap: wrap;
+	align-items: center;
+}
+
+.title {
+	font-size: 22px;
+	font-weight: 700;
+	white-space: nowrap;
+}
+
+.root .timer {
+	font-size: 30px;
+	font-weight: 500;
+	gap: 0.5ch;
+	margin-left: auto;
+}
+
+.root.finished {
+	justify-content: center;
+}

@@ -1,0 +1,31 @@
+.date_button {
+	width: 100%;
+	box-sizing: border-box;
+	background: none;
+	border: none;
+	color: var(--color-white-secondary);
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	text-align: left;
+	font-size: 16px;
+	padding: 0;
+}
+
+.title {
+	font-weight: 600;
+}
+
+.icon {
+	width: 30px;
+	height: auto;
+}
+
+.icon path {
+	stroke: var(--color-white-secondary);
+}
+
+.date_button:disabled {
+	pointer-events: none;
+	opacity: 0.6;
+}

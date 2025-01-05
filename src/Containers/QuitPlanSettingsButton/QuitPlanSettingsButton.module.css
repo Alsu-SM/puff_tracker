@@ -1,0 +1,36 @@
+.root {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	margin: 20px;
+	width: calc(100% - 40px);
+	border-radius: 20px;
+	padding: 20px;
+	box-sizing: border-box;
+	background: var(--color-white-secondary-bg);
+	border: none;
+	color: var(--color-white-secondary);
+	font-size: 14px;
+}
+
+.title {
+	text-align: center;
+	margin: 0 auto;
+	font-size: 20px;
+}
+.settings_item {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.settings_item_title {
+	text-align: left;
+	font-weight: 300;
+}
+
+.settings_item_value {
+	white-space: nowrap;
+	font-weight: 500;
+}

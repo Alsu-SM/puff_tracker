@@ -1,0 +1,52 @@
+.content {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+	text-align: left;
+	font-size: 16px;
+	line-height: 1;
+	font-weight: 300;
+}
+
+.detailed_content {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.message {
+	text-align: left;
+	font-weight: 500;
+	font-size: 18px;
+}
+
+.detailed_content_items {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	font-weight: 400;
+}
+
+.detailed_content_item {
+	display: flex;
+	text-align: left;
+	font-size: 16px;
+	line-height: 1;
+	font-weight: 300;
+
+	border: none;
+	background: none;
+	color: var(--color-white-secondary);
+
+	padding: 0;
+}
+
+.button {
+	border: none;
+	background: none;
+	color: var(--color-white-secondary);
+	text-align: left;
+	font-weight: 500;
+	font-size: 18px;
+	padding: 0;
+}
