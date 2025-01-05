@@ -1,10 +1,5 @@
-# Запуск для разработки
-
-В проекте используется `https`, для создания
-сертификата необходимо выполнять команду
-`yarn dev` от суперпользователя.
-
-В MacOS, если пользователь не является
-супер-администратором, нужно переключиться
-на него командой `su`, после запустить
-`sudo yarn dev`.
+![image](https://github.com/user-attachments/assets/ed4d52ce-1d8f-4d79-95f9-8e16c33a4795)
+![image](https://github.com/user-attachments/assets/38716885-d712-4b97-b108-0f4c0ba4d6ca)
+![image](https://github.com/user-attachments/assets/38ebb55c-227a-4f3e-bd6c-bddb1faae53b)
+![image](https://github.com/user-attachments/assets/9a3f083e-e6e6-4e9e-bd08-c5a612147187)
+![image](https://github.com/user-attachments/assets/4b3567f1-8088-47ba-8f72-5b8b39c4941f)
