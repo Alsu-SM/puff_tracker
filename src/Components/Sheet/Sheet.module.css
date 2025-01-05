@@ -1,0 +1,15 @@
+.sheet {
+	height: 100dvh;
+	width: 100vw;
+	background: var(--color-black-bg);
+	position: fixed;
+	top: 0;
+	right: -100%;
+	z-index: 10;
+	transition: right 0.5s ease-in-out;
+	box-sizing: border-box;
+}
+
+.shown {
+	right: 0;
+}

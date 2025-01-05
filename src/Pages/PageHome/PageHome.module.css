@@ -1,40 +1,20 @@
-.main_panel {
-	margin: 0.75em 1em;
-}
-
-.main_panel :global(.panel__title_bar) {
-	background-color: var(--color-gray-2);
-	height: 2.25em;
-}
-
-.main_panel :global(.panel__title) {
-	font-weight: 600;
-	font-size: 0.938em;
-}
-
-.main_panel :global(.panel__body) {
-	padding: 0;
-}
-
-.filters_panel {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	margin: 0.75em 1em;
-}
-
-.right_side {
-	display: flex;
-	align-items: center;
-	gap: 1em;
-}
-
-.separator {
-	height: 1.875em;
-	width: 0.063em;
-	background-color: var(--color-black-15);
-}
-
 .root {
-	overflow: auto;
+	width: min(100vw, 500px);
+	height: 100dvh;
+	margin: auto;
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	gap: 0px;
+	overflow: hidden;
+}
+
+.image_wrapper {
+	flex: 1;
+	overflow: hidden;
+	background: url('../../Assets/g4.gif') no-repeat;
+	background-size: 100%;
+	background-position: center;
+	opacity: 0.05;
+	filter: blur(1px);
 }

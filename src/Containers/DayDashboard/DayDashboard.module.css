@@ -1,0 +1,33 @@
+.root {
+	padding: 20px;
+}
+.counter,
+.last {
+	display: flex;
+	height: 50%;
+	align-items: center;
+	justify-content: flex-end;
+	flex-direction: column;
+	margin: auto;
+	font-size: 20px;
+	line-height: 1;
+}
+
+.counter .value {
+	font-size: 70px;
+	font-weight: 600;
+}
+
+.last .time {
+	font-size: 40px;
+	font-weight: 600;
+}
+
+.last .date {
+	font-size: 25px;
+}
+
+.label {
+	font-size: 25px;
+	font-weight: 500;
+}

@@ -1,0 +1,12 @@
+.root {
+	display: flex;
+	align-items: center;
+	gap: 1ch;
+}
+
+.value:not(.days) {
+	width: 2ch;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
