@@ -19,11 +19,11 @@
 	flex-direction: column;
 	gap: 20px;
 	padding: var(--padding);
-	font-size: 20px;
+	font-size: 18px;
 }
 
 .datepicker button {
-	font-size: 20px;
+	font-size: 18px;
 }
 
 .counter_rows {
@@ -40,7 +40,7 @@
 }
 
 .counter_row_title {
-	font-size: 20px;
+	font-size: 18px;
 	font-weight: 300;
 }
 
@@ -73,7 +73,7 @@
 }
 
 .modal_content {
-	width: 80dvw;
+	width: calc(var(--root-width) * 0.8);
 	display: flex;
 	flex-direction: column;
 	gap: 20px;

@@ -10,6 +10,7 @@ body .datepicker {
 body .datepicker .datepicker-content {
 	padding: 10px !important;
 	overflow: hidden;
+	justify-content: center;
 }
 
 body .datepicker .datepicker-header {
@@ -150,4 +151,8 @@ body .datepicker .datepicker-navbar .datepicker-navbar-btn {
 
 body .datepicker .datepicker-navbar .datepicker-navbar-btn:nth-child(1) {
 	background: var(--color-white-secondary-bg);
+}
+
+body .datepicker-date-only {
+	display: none !important;
 }

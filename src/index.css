@@ -13,16 +13,18 @@
 	--color-white-secondary: #b8b8b8;
 	--color-white-secondary-bg: #272727;
 	--box-shadow: 0px 0px 20px 1px rgba(0, 0, 0, 0.8);
+
+	--root-width: min(100dvw, 500px);
+	--root-height: min(100dvh, 700px);
 }
 
 body {
 	margin: 0;
 	display: flex;
-	min-width: 320px;
-	min-height: 100dvh;
-	background-color: var(--color-black-bg);
+	align-items: center;
+	overflow: hidden;
+	background-color: var(--color-white-secondary-bg);
 	color: var(--color-white-secondary);
-	overflow-x: hidden;
 }
 
 ::-webkit-scrollbar {

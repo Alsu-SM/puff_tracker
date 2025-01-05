@@ -5,6 +5,8 @@ import { cancelText, confirmText, headerFormat } from './constants';
 import DatePickerHeader from './DatePickerHeader';
 import useDatePicker from './useDatePicker';
 import { getConfigByDateType } from './utils';
+import clsx from 'clsx';
+import { DateType } from '../DatePickerButton/types';
 
 function DatePicker({
 	date,
@@ -35,6 +37,9 @@ function DatePicker({
 				onCancel={handleNow}
 				onChange={handleChange}
 				onSelect={handleConfirm}
+				className={clsx({
+					'datepicker-date-only': dateType === DateType.DateOnly,
+				})}
 			/>
 		</div>
 	);
