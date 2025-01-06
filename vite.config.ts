@@ -9,6 +9,7 @@ export default defineConfig({
 		https: {},
 	},
 	plugins: [VitePWA(manifest), react(), mcret()],
+	base: '/puff_tracker/',
 	css: {
 		modules: {
 			generateScopedName: '[folder]_[local]__[hash:base64:5]',
