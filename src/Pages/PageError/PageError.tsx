@@ -7,10 +7,10 @@ import styles from './PageError.module.css';
 
 function PageError() {
 	const routerError: DefaultRouterError = useRouteError() as DefaultRouterError;
-
+	console.log(routerError);
 	return (
 		<div className={clsx('page', styles.root)}>
-			<h3>Произошла ошибка</h3>
+			<h3 className={styles.title}>Произошла ошибка</h3>
 			<p>
 				<i>{routerError.statusText || routerError.message}</i>
 			</p>
