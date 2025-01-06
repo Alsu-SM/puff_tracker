@@ -8,8 +8,8 @@ const manifest: Partial<VitePWAOptions> = {
 		enabled: true,
 	},
 	manifest: {
-		name: 'React PWA boilerplate',
-		short_name: 'pwa',
+		name: 'puff tracker',
+		short_name: 'puff tracker',
 		description: 'Описание приложения',
 		theme_color: 'white',
 		background_color: '#f4f4f4',
