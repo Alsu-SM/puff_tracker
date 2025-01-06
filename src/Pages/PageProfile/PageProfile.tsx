@@ -10,7 +10,7 @@ import BackupSection from '../../Containers/BackupSection';
 
 function PageProfile({ className, style }: PageProfileProps) {
 	return (
-		<div className={clsx(styles.root, className)} style={style}>
+		<div className={clsx(styles.root, 'page', className)} style={style}>
 			<ProfileName />
 			<QuitPlanSettingsButton />
 			<BackupSection />

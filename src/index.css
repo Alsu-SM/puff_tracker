@@ -1,10 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap');
 
 :root {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	-webkit-text-size-adjust: 100%;
-	--font-family: 'Sour Gummy', sans-serif;
+	--font-family: 'Sour Gummy', 'Comfortaa', sans-serif;
 	font-family: var(--font-family);
 	font-size: 16px;
 

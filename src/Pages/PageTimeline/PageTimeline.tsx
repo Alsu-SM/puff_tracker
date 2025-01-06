@@ -8,7 +8,7 @@ import ModalEditEntry from '../../Containers/ModalEditEntry';
 
 function PageTimeline({ className, style }: PageTimelineProps) {
 	return (
-		<div className={clsx(styles.root, className)} style={style}>
+		<div className={clsx(styles.root, 'page', className)} style={style}>
 			<TimelineContainer />
 			<ModalAddManualEntry />
 			<ModalEditEntry />

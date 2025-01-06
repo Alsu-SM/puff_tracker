@@ -6,7 +6,7 @@ import ChartsContainer from '../../Containers/ChartsContainer';
 
 function PageCharts({ className, style }: PageChartsProps) {
 	return (
-		<div className={clsx(styles.root, className)} style={style}>
+		<div className={clsx(styles.root, 'page', className)} style={style}>
 			<ChartsContainer />
 		</div>
 	);

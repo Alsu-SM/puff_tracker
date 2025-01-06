@@ -5,4 +5,9 @@
 	margin-left: auto;
 	overflow: hidden;
 	background: var(--color-black-bg);
+
+	--toastify-toast-width: min(calc(100dvw - 72px), 560px);
+	--toastify-toast-right: 36px;
+	--toastify-toast-bottom: 26px;
+	--toastify-toast-min-height: 40px;
 }

@@ -1,0 +1,20 @@
+.root {
+	height: 1em;
+	width: 1em;
+}
+
+.spin {
+	animation: spin 1s linear infinite;
+	box-sizing: border-box;
+	border: 3px solid;
+	border-color: #c2c2c2 #c2c2c2 #c2c2c200;
+	border-radius: 50%;
+	height: 100%;
+	width: 100%;
+}
+
+@keyframes spin {
+	100% {
+		transform: rotateZ(360deg);
+	}
+}

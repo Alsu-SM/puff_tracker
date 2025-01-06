@@ -1,0 +1,32 @@
+:root {
+	--size: 20px;
+	--border-radius: 4px;
+}
+
+.root {
+	position: absolute;
+	z-index: -1;
+	opacity: 0;
+}
+
+.root + label::before {
+	content: '';
+	display: inline-block;
+	width: var(--size);
+	height: var(--size);
+	flex-shrink: 0;
+	flex-grow: 0;
+	border: 2px solid var(--color-white-secondary-bg);
+	border-radius: var(--border-radius);
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: 50% 50%;
+}
+
+.root:checked + label::before {
+	border-color: var(--color-white-secondary);
+	background-color: var(--color-white-secondary);
+	background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M19.5 7L9 17.5L5 13.5' stroke='%23272727' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
+	background-size: 100%;
+	opacity: 0.6;
+}
