@@ -3,7 +3,7 @@ import { VitePWAOptions } from 'vite-plugin-pwa';
 const manifest: Partial<VitePWAOptions> = {
 	registerType: 'autoUpdate',
 	injectRegister: 'auto',
-	includeAssets: ['./favicon.ico'],
+	includeAssets: ['favicon.ico'],
 	devOptions: {
 		enabled: true,
 	},
@@ -12,9 +12,9 @@ const manifest: Partial<VitePWAOptions> = {
 		short_name: 'puff_tracker',
 		start_url: 'https://alsu-sm.github.io/puff_tracker/home',
 		scope: 'https://alsu-sm.github.io/puff_tracker/',
-		description: 'Описание приложения',
-		theme_color: 'white',
-		background_color: '#f4f4f4',
+		description: 'cute quit slowly assistance app',
+		theme_color: '#1d1d1d',
+		background_color: '#1d1d1d',
 		icons: [
 			{
 				src: './icons/144_144.png',

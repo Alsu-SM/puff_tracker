@@ -99,20 +99,25 @@ export function deleteEntryEventHandler(
 	entry: Entry,
 ): PuffsModel {
 	const currentDay = getDay(days, entry.date);
-
 	if (currentDay) {
-		const newDays = days.map((day: Day) => {
-			if (isSameDay(day.date, entry.date)) {
-				return {
-					...day,
-					entries: day.entries.filter(
-						(currentEntry) => currentEntry.id !== entry.id,
-					),
-				};
-			}
+		const isEmpty =
+			currentDay.entries.filter((currentEntry) => currentEntry.id !== entry.id)
+				.length === 0;
 
-			return day;
-		});
+		const newDays = isEmpty
+			? days.filter((day: Day) => !isSameDay(day.date, currentDay.date))
+			: days.map((day: Day) => {
+					if (isSameDay(day.date, entry.date)) {
+						return {
+							...day,
+							entries: day.entries.filter(
+								(currentEntry) => currentEntry.id !== entry.id,
+							),
+						};
+					}
+
+					return day;
+				});
 
 		const newState = {
 			...state,

@@ -55,6 +55,14 @@ function useModalAddManualEntry() {
 	};
 	const handleConfirm = () => {
 		const closestDay = findClosestDate(days, entry.date);
+
+		if (!closestDay) {
+			addEntryEvent(entry);
+			setEntry(ENTRY_DEFAULT);
+			setIsAddManualEntryModalShownEvent(false);
+			return;
+		}
+
 		const closestEntry = findClosestDate(
 			(closestDay as Day).entries || [],
 			entry.date,

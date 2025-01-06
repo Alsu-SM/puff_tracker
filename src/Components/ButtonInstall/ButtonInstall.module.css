@@ -1,0 +1,26 @@
+.root {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: fixed;
+	bottom: 80px;
+	right: 10px;
+	border-radius: 50%;
+	width: 50px;
+	height: 50px;
+	border: none;
+	background: var(--color-white-secondary-bg);
+	box-shadow: var(--box-shadow);
+	padding: 10px;
+	opacity: 0.5;
+	transition: opacity 0.2s;
+	z-index: 1000;
+}
+
+.root .icon path {
+	stroke: var(--color-white-secondary);
+}
+
+.root:disabled {
+	opacity: 0.1;
+}

@@ -8,3 +8,4 @@ export { default as MoreVertical } from './MoreVertical';
 export { default as Check } from './Check';
 export { default as Cross } from './Cross';
 export { default as TrendDown } from './TrendDown';
+export { default as Download } from './Download';
