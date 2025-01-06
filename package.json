@@ -1,9 +1,9 @@
 {
-	"name": "react_vite_boilerplate",
+	"name": "puff_tracker",
 	"private": true,
-	"version": "0.0.0",
+	"version": "0.0.1",
 	"type": "module",
-	"homepage": "https://alsu-sm.github.io/puff_tracker",
+	"homepage": "https://alsu-sm.github.io/puff_tracker/",
 	"scripts": {
 		"dev": "vite",
 		"build": "tsc && vite build",
