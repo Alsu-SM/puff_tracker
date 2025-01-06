@@ -3,7 +3,7 @@ import { VitePWAOptions } from 'vite-plugin-pwa';
 const manifest: Partial<VitePWAOptions> = {
 	registerType: 'autoUpdate',
 	injectRegister: 'auto',
-	includeAssets: ['favicon.ico'],
+	includeAssets: ['./favicon.ico'],
 	devOptions: {
 		enabled: true,
 	},
