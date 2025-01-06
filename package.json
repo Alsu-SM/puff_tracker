@@ -3,7 +3,7 @@
 	"private": true,
 	"version": "0.0.1",
 	"type": "module",
-	"homepage": "https://alsu-sm.github.io/puff_tracker",
+	"homepage": "https://alsu-sm.github.io/puff_tracker/home",
 	"scripts": {
 		"dev": "vite",
 		"build": "tsc && vite build",

@@ -10,10 +10,10 @@ export type RouteItem = {
 };
 
 export enum RoutePath {
-	Home = 'home',
-	Timeline = 'timeline',
-	Charts = 'charts',
-	Profile = 'profile',
+	Home = '/puff_tracker/home',
+	Timeline = '/puff_tracker/timeline',
+	Charts = '/puff_tracker/charts',
+	Profile = '/puff_tracker/profile',
 }
 
 export default {};

@@ -6,7 +6,7 @@ import PageError from '../Pages/PageError';
 
 const router = createRouter([
 	{
-		path: '/',
+		path: '/puff_tracker',
 		element: <App />,
 		loader: appLoader,
 		errorElement: <PageError />,

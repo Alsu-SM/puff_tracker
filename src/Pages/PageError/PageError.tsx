@@ -10,7 +10,7 @@ function PageError() {
 	console.log(routerError);
 	return (
 		<div className={clsx('page', styles.root)}>
-			<h3 className={styles.title}>Произошла ошибка</h3>
+			<h3 className={styles.title}>An error occurred</h3>
 			<p>
 				<i>{routerError.statusText || routerError.message}</i>
 			</p>
