@@ -10,7 +10,7 @@ const manifest: Partial<VitePWAOptions> = {
 	manifest: {
 		name: 'puff tracker',
 		short_name: 'puff tracker',
-		start_url: '/puff_tracker/',
+		start_url: '/puff_tracker',
 		scope: '/puff_tracker/',
 		description: 'Описание приложения',
 		theme_color: 'white',
