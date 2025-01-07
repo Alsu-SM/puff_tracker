@@ -10,6 +10,7 @@ import {
 import { useUnit } from 'effector-react';
 import { $uiModel, setIsAddManualEntryModalShownEvent } from '../../Model/ui';
 import { isSameMinute } from 'date-fns';
+import getUUIDv7 from '../../Utils/getUUIDv7';
 
 function useModalAddManualEntry() {
 	const {
@@ -57,7 +58,7 @@ function useModalAddManualEntry() {
 		const closestDay = findClosestDate(days, entry.date);
 
 		if (!closestDay) {
-			addEntryEvent(entry);
+			addEntryEvent({ ...entry, id: getUUIDv7() });
 			setEntry(ENTRY_DEFAULT);
 			setIsAddManualEntryModalShownEvent(false);
 			return;
@@ -69,7 +70,7 @@ function useModalAddManualEntry() {
 		) as Entry;
 
 		if (!closestEntry) {
-			addEntryEvent(entry);
+			addEntryEvent({ ...entry, id: getUUIDv7() });
 			setEntry(ENTRY_DEFAULT);
 			setIsAddManualEntryModalShownEvent(false);
 			return;
@@ -78,7 +79,7 @@ function useModalAddManualEntry() {
 		const interval = (+entry.date - +closestEntry.date) / 1000;
 		const goalInterval = closestEntry.goalInterval + increaseIntervalStep;
 
-		addEntryEvent({ ...entry, interval, goalInterval });
+		addEntryEvent({ ...entry, interval, goalInterval, id: getUUIDv7() });
 		setEntry(ENTRY_DEFAULT);
 		setIsAddManualEntryModalShownEvent(false);
 	};
