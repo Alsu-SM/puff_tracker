@@ -41,7 +41,7 @@ function useModalAddEntry() {
 
 		const newEntry: Entry = {
 			id: getUUIDv7(),
-			date: startDate,
+			date: new Date(),
 			cigarettes,
 			puffs,
 			interval,
