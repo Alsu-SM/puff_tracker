@@ -7,9 +7,13 @@ import {
 } from '../../Model/puffs/utils';
 import { setIsAddEntryModalShownEvent } from '../../Model/ui';
 import { renderContentLeft, renderContentRight } from './renders';
+import { useState } from 'react';
 
 function useDayDashboard() {
-	const { days } = useUnit($puffsModel);
+	const { days, currentInterval } = useUnit($puffsModel);
+
+	const [isWarningModalShown, setIsWarningModalShown] =
+		useState<boolean>(false);
 
 	const currentDay = getCurrentDay(days);
 	const entries = currentDay?.entries || [];
@@ -17,7 +21,26 @@ function useDayDashboard() {
 	const lastEntry = getLastEntryByDays(days);
 	const { time, date } = getLastEntryDate(lastEntry);
 
+	const isAllowed = lastEntry
+		? (+new Date() - +lastEntry.date) / 1000 >= currentInterval
+		: true;
+
 	const handleAddEntry = () => {
+		if (isAllowed) {
+			setIsAddEntryModalShownEvent(true);
+
+			return;
+		}
+
+		setIsWarningModalShown(true);
+	};
+
+	const handleWarningCancel = () => {
+		setIsWarningModalShown(false);
+	};
+
+	const handleWarningConfirm = () => {
+		setIsWarningModalShown(false);
 		setIsAddEntryModalShownEvent(true);
 	};
 
@@ -25,9 +48,12 @@ function useDayDashboard() {
 	const renderDay = () => renderContentRight(time, date || '');
 
 	return {
+		isWarningModalShown,
 		handleAddEntry,
 		renderCount,
 		renderDay,
+		handleWarningCancel,
+		handleWarningConfirm,
 	};
 }
 
