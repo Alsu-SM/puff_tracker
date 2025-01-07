@@ -1,7 +1,7 @@
 {
 	"name": "puff_tracker",
 	"private": true,
-	"version": "0.0.1",
+	"version": "1.0.1",
 	"type": "module",
 	"homepage": "https://alsu-sm.github.io/puff_tracker/home",
 	"scripts": {

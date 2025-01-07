@@ -4,3 +4,11 @@
 	flex-direction: column;
 	gap: 20px;
 }
+
+.version {
+	position: absolute;
+	bottom: 80px;
+	left: 20px;
+	opacity: 0.2;
+	font-size: 12px;
+}
