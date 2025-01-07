@@ -31,11 +31,10 @@ function useBugReport() {
 		setDescription(event.target.value);
 	};
 
-	const resizeImage = (
-		url: string,
-		width: number = 187,
-		height: number = 350,
-	) => {
+	const resizeImage = (url: string, coefficient: number = 0.5) => {
+		const width = Math.min(window.screen.availWidth, 500) * coefficient;
+		const height = window.screen.availHeight * coefficient;
+
 		return new Promise<string>((resolve, reject) => {
 			const sourceImage = new Image();
 
