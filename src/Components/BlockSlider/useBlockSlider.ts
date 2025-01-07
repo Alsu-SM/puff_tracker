@@ -1,5 +1,5 @@
 import { Touch, TouchEvent, useRef, useState } from 'react';
-import { ANGLE_DEFAULT } from './constants';
+import { ANGLE_DEFAULT, MIN_ANGLE } from './constants';
 import { UseBlockSliderParams } from './types';
 
 function useBlockSlider({ onSwipeLeft, onSwipeRight }: UseBlockSliderParams) {
@@ -28,8 +28,8 @@ function useBlockSlider({ onSwipeLeft, onSwipeRight }: UseBlockSliderParams) {
 			const value = lastDelta - deltaX;
 			const valuePercent = (value / ref.current.offsetWidth) * 100;
 			const newAngle = Math.min(
-				Math.max(angle + (valuePercent * 9) / 8, 90),
-				270,
+				Math.max(angle + (valuePercent * 9) / 8, MIN_ANGLE),
+				ANGLE_DEFAULT,
 			);
 			setAngle(newAngle);
 			setLastDelta(deltaX);

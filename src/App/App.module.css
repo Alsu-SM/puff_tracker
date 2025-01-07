@@ -6,8 +6,29 @@
 	overflow: hidden;
 	background: var(--color-black-bg);
 
-	--toastify-toast-width: min(calc(100dvw - 72px), 560px);
-	--toastify-toast-right: 36px;
-	--toastify-toast-bottom: 26px;
+	--toastify-toast-width: min(calc(100dvw - 80px), 560px);
+	--toastify-toast-right: 20px;
+	--toastify-toast-bottom: 20px;
 	--toastify-toast-min-height: 40px;
+	--toastify-font-family: var(--font-family);
+	--toastify-color-progress-info: var(--color-black-bg);
+	box-sizing: border-box;
+}
+
+.toast > :global([class*='_toast']) {
+	padding: 10px 20px;
+	color: var(--color-black-bg);
+	background: var(--color-white-secondary);
+	width: calc(var(--root-width) - 20px);
+	box-shadow: var(--box-shadow);
+	opacity: 0.9;
+}
+
+.toast > :global([class*='_toast']) > :global([class*='_toast-icon']) {
+	display: none;
+}
+
+.toast > :global([class*='_toast']) > :global([class*='_close-button']) {
+	color: var(--color-black-bg);
+	opacity: 0.8;
 }

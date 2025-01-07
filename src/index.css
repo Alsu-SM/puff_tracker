@@ -51,3 +51,7 @@ button,
 canvas {
 	font-family: var(--font-family);
 }
+
+* {
+	-webkit-tap-highlight-color: transparent;
+}

@@ -15,7 +15,7 @@ function App({ className, style }: AppProps) {
 			<Navbar />
 			<BugReport />
 			<ToastContainer
-				autoClose={false}
+				autoClose={3000}
 				position="bottom-center"
 				className={styles.toast}
 			/>

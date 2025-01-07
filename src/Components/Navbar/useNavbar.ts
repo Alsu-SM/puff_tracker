@@ -6,7 +6,7 @@ function useNavbar() {
 	const location = useLocation();
 
 	const items: JSX.Element[] = routes.map((item) => {
-		const isActive: boolean = location.pathname === `/${item.path}`;
+		const isActive: boolean = location.pathname === `${item.path}`;
 
 		return renderNavItem({ item, isActive });
 	});
