@@ -8,7 +8,9 @@ function useTimelineDetailedContentItem(entry: Entry) {
 	const { date, cigarettes, puffs, interval, goalInterval } = entry;
 	const formattedDate = format(date, 'HH:mm');
 	const intervalTime = formatTimeToStringShort(interval * 1000, true);
-	const goalIntervalTime = formatTimeToStringShort(goalInterval * 1000, true);
+	const goalIntervalTime = goalInterval
+		? formatTimeToStringShort(goalInterval * 1000, true)
+		: '-';
 
 	const handleRowClick = (e: MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();

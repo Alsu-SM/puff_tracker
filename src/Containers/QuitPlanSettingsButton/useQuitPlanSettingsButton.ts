@@ -1,52 +1,45 @@
 import { useUnit } from 'effector-react';
-import { $puffsModel } from '../../Model/puffs';
+import { $puffsModel, setIsTrackOnlyEvent } from '../../Model/puffs';
 import { setIsQuitPlanSettingsModalShownEvent } from '../../Model/ui';
-import { format } from 'date-fns';
-import { DateType } from '../../Components/DatePickerButton/types';
 import { formatTimeToString } from '../../Utils/formatTime';
+import { MouseEvent } from 'react';
 
 function useQuitPlanSettingsButton() {
 	const {
-		startDate,
-		endDate,
+		isTrackOnly,
 		startInterval,
 		currentInterval,
-		increaseIntervalStep,
-		goalIntervalCleanDays,
+		shouldAskToDecreaseIntervalOnFail,
+		shouldAskToIncreaseIntervalOnSuccess,
 	} = useUnit($puffsModel);
-
-	const startDateFormatted = format(startDate, DateType.DateOnly);
-	const endDateFormatted = format(endDate, DateType.DateOnly);
 
 	const startIntervalFormatted = formatTimeToString(
 		startInterval * 1000,
 		false,
 	);
+
 	const currentIntervalFormatted = formatTimeToString(
 		currentInterval * 1000,
 		false,
 	);
-	const increaseIntervalStepFormatted = formatTimeToString(
-		increaseIntervalStep * 1000,
-		false,
-	);
-	const goalIntervalCleanDaysFormatted =
-		goalIntervalCleanDays > 1
-			? `${goalIntervalCleanDays} days`
-			: `${goalIntervalCleanDays} day`;
 
 	const handleClick = () => {
 		setIsQuitPlanSettingsModalShownEvent(true);
 	};
 
+	const handleIsTrackOnlyToggle = (e: MouseEvent<HTMLInputElement>) => {
+		e.stopPropagation();
+		setIsTrackOnlyEvent(!isTrackOnly);
+	};
+
 	return {
-		startDateFormatted,
-		endDateFormatted,
+		isTrackOnly,
 		startIntervalFormatted,
 		currentIntervalFormatted,
-		increaseIntervalStepFormatted,
-		goalIntervalCleanDaysFormatted,
+		shouldAskToDecreaseIntervalOnFail,
+		shouldAskToIncreaseIntervalOnSuccess,
 		handleClick,
+		handleIsTrackOnlyToggle,
 	};
 }
 

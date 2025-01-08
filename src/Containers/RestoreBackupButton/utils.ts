@@ -1,4 +1,4 @@
-import { PuffsModel } from '../../Model/puffs';
+import { parsePuffsModelRestoredData } from '../../Model/puffs/utils';
 import { UIModel } from '../../Model/ui';
 import { BackupData } from '../../Utils/createBackup';
 
@@ -28,54 +28,8 @@ export function parseBackup(data: string): Promise<BackupData> {
 				date: dateValue,
 			}: BackupData = JSON.parse(data);
 			const date = new Date(dateValue);
-			const {
-				entries: entriesValue,
-				startDate: startDateValue,
-				endDate: endDateValue,
-				startInterval: startIntervalValue,
-				currentInterval: currentIntervalValue,
-				increaseIntervalStep: increaseIntervalStepValue,
-				intervalSettingsHistory: intervalSettingsHistoryValue,
-				goalIntervalCleanDays: goalIntervalCleanDaysValue,
-			} = puffsModelValue;
-			const startDate = new Date(startDateValue);
-			const endDate = new Date(endDateValue);
-			const startInterval = Number(startIntervalValue);
-			const currentInterval = Number(currentIntervalValue);
-			const increaseIntervalStep = Number(increaseIntervalStepValue);
-			const goalIntervalCleanDays = Number(goalIntervalCleanDaysValue);
 
-			const entries = entriesValue.map(
-				({ id, date, puffs, cigarettes, interval, goalInterval }) => ({
-					id,
-					date: new Date(date),
-					puffs: Number(puffs),
-					cigarettes: Number(cigarettes),
-					interval: Number(interval),
-					goalInterval: Number(goalInterval),
-				}),
-			);
-
-			const intervalSettingsHistory = intervalSettingsHistoryValue.map(
-				({ dateOfChange, interval, increaseIntervalStep }) => ({
-					dateOfChange: new Date(dateOfChange),
-					interval: Number(interval),
-					increaseIntervalStep: Number(increaseIntervalStep),
-				}),
-			);
-
-			const puffsModel: PuffsModel = {
-				startDate,
-				endDate,
-				startInterval,
-				currentInterval,
-				increaseIntervalStep,
-				goalIntervalCleanDays,
-				entries,
-				intervalSettingsHistory,
-				currentDay: null,
-				currentEntry: null,
-			};
+			const puffsModel = parsePuffsModelRestoredData(puffsModelValue);
 
 			const { lastBackupDate: lastBackupDateValue, ...rest } = uiModelValue;
 			const lastBackupDate = lastBackupDateValue

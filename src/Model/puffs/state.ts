@@ -19,6 +19,8 @@ import {
 	setEndDateEventHandler,
 	setGoalIntervalCleanDays,
 	setGoalIntervalCleanDaysHandler,
+	setIsTrackOnlyEvent,
+	setIsTrackOnlyEventHandler,
 	setPuffsModelEvent,
 	setPuffsModelEventHandler,
 	setQuitPlanSettingsDataEvent,
@@ -39,4 +41,5 @@ export const $puffsModel = createStore<PuffsModel>(PUFFS_MODEL_DEFAULT)
 	.on(setQuitPlanSettingsDataEvent, setQuitPlanSettingsDataEventHandler)
 	.on(setCurrentEntryEvent, setCurrentEntryEventHandler)
 	.on(setCurrentDayEvent, setCurrentDayEventHandler)
+	.on(setIsTrackOnlyEvent, setIsTrackOnlyEventHandler)
 	.reset(resetPuffsModelEvent);

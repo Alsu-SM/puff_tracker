@@ -11,7 +11,7 @@
 	border: none;
 	background: var(--color-white-secondary-bg);
 	box-shadow: var(--box-shadow);
-	opacity: 0.2;
+	opacity: 0.1;
 	cursor: pointer;
 	transition: opacity 0.4s;
 	z-index: 1000;

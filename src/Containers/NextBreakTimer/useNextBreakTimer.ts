@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { getLastEntry } from '../../Model/puffs/utils';
 
 function useNextBreakTimer() {
-	const { entries, currentInterval } = useUnit($puffsModel);
+	const { entries, currentInterval, isTrackOnly } = useUnit($puffsModel);
 	const [isIntervalFinished, setIsIntervalFinished] = useState<boolean>();
 
 	const lastEntry = getLastEntry(entries);
@@ -38,7 +38,7 @@ function useNextBreakTimer() {
 		};
 	}, [goalDate]);
 
-	return { goalDate, isIntervalFinished, title };
+	return { goalDate, isIntervalFinished, title, isTrackOnly };
 }
 
 export default useNextBreakTimer;

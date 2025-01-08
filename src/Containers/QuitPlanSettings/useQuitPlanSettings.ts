@@ -1,124 +1,132 @@
 import { useUnit } from 'effector-react';
-import { $puffsModel, setQuitPlanSettingsDataEvent } from '../../Model/puffs';
+import {
+	$puffsModel,
+	setQuitPlanSettingsDataEvent,
+	SetQuitPlanSettingsDataEventParams,
+} from '../../Model/puffs';
 import { $uiModel, setIsQuitPlanSettingsModalShownEvent } from '../../Model/ui';
 import { ChangeEvent, useEffect, useState } from 'react';
-import { MIN_CLEAN_DAYS } from './constants';
-import { getEndDate } from './utils';
-import { format } from 'date-fns';
 
 function useQuitPlanSettings() {
 	const {
-		startDate,
-		startInterval,
-		endDate,
+		currentInterval,
+		shouldAskToDecreaseIntervalOnFail,
+		shouldAskToIncreaseIntervalOnSuccess,
+		successIntervalNumberToPrompt,
+		failIntervalNumberToPrompt,
 		increaseIntervalStep,
-		goalIntervalCleanDays,
+		decreaseIntervalStep,
 	} = useUnit($puffsModel);
 	const { isQuitPlanSettingsModalShown } = useUnit($uiModel);
 
-	const [currentStartDate, setCurrentStartDate] = useState<Date>(startDate);
-	const [currentEndDate, setCurrentEndDate] = useState<Date>(endDate);
-	const [currentStartInterval, setCurrentStartInterval] = useState<number>(
-		Math.floor(startInterval / 60),
-	);
-	const [currentIntervalStep, setCurrentIntervalStep] = useState<number>(
-		Math.floor(increaseIntervalStep / 60),
-	);
-	const [cleanDays, setCleanDays] = useState<number>(goalIntervalCleanDays);
-	const [shouldResetCurrentInterval, setShouldResetCurrentInterval] =
-		useState<boolean>(false);
+	const [currentSettings, setCurrentSettings] =
+		useState<SetQuitPlanSettingsDataEventParams>({
+			shouldAskToIncreaseIntervalOnSuccess,
+			shouldAskToDecreaseIntervalOnFail,
+			successIntervalNumberToPrompt,
+			failIntervalNumberToPrompt,
+			currentInterval: Math.floor(currentInterval / 60),
+			increaseIntervalStep: Math.floor(increaseIntervalStep / 60),
+			decreaseIntervalStep: Math.floor(decreaseIntervalStep / 60),
+		});
 
-	const cleanDaysTitleFormatted = cleanDays === MIN_CLEAN_DAYS ? `day` : 'days';
-	const endDateFormatted = format(currentEndDate, 'dd.MM.yyyy');
-
-	const handleToggle = () => {
-		setShouldResetCurrentInterval(!shouldResetCurrentInterval);
+	const handleToggleSuccess = () => {
+		setCurrentSettings({
+			...currentSettings,
+			shouldAskToIncreaseIntervalOnSuccess:
+				!currentSettings.shouldAskToIncreaseIntervalOnSuccess,
+		});
 	};
 
-	const handleStartDateChange = (date: Date) => {
-		setCurrentStartDate(date);
+	const handleToggleFail = () => {
+		setCurrentSettings({
+			...currentSettings,
+			shouldAskToDecreaseIntervalOnFail:
+				!currentSettings.shouldAskToDecreaseIntervalOnFail,
+		});
 	};
 
-	const handleIntervalChange = (event: ChangeEvent<HTMLInputElement>) => {
-		setCurrentStartInterval(Number(event.target.value));
+	const handleSuccessIntervalNumberToPromptChange = (
+		event: ChangeEvent<HTMLInputElement>,
+	) => {
+		setCurrentSettings({
+			...currentSettings,
+			successIntervalNumberToPrompt: Number(event.target.value || 1),
+		});
 	};
 
-	const handleIntervalStepChange = (event: ChangeEvent<HTMLInputElement>) => {
-		setCurrentIntervalStep(Number(event.target.value));
+	const handleFailIntervalNumberToPromptChange = (
+		event: ChangeEvent<HTMLInputElement>,
+	) => {
+		setCurrentSettings({
+			...currentSettings,
+			failIntervalNumberToPrompt: Number(event.target.value || 1),
+		});
 	};
-	const handleCleanDaysChange = (event: ChangeEvent<HTMLInputElement>) => {
-		setCleanDays(Number(event.target.value));
+
+	const handleIncreaseIntervalStepChange = (
+		event: ChangeEvent<HTMLInputElement>,
+	) => {
+		setCurrentSettings({
+			...currentSettings,
+			increaseIntervalStep: Number(event.target.value || 1),
+		});
+	};
+	const handleDecreaseIntervalStepChange = (
+		event: ChangeEvent<HTMLInputElement>,
+	) => {
+		setCurrentSettings({
+			...currentSettings,
+			decreaseIntervalStep: Number(event.target.value || 1),
+		});
+	};
+	const handleCurrentIntervalChange = (
+		event: ChangeEvent<HTMLInputElement>,
+	) => {
+		setCurrentSettings({
+			...currentSettings,
+			currentInterval: Number(event.target.value || 1),
+		});
 	};
 
 	const handleCancel = () => {
-		setCurrentStartDate(startDate);
-		setCurrentEndDate(endDate);
-		setCurrentStartInterval(Math.floor(startInterval / 60));
-		setCurrentIntervalStep(Math.floor(increaseIntervalStep / 60));
-		setCleanDays(goalIntervalCleanDays);
-		setShouldResetCurrentInterval(false);
-
+		resetCurrentSettings();
 		setIsQuitPlanSettingsModalShownEvent(false);
 	};
 
 	const handleConfirm = () => {
-		setQuitPlanSettingsDataEvent({
-			startDate: currentStartDate,
-			endDate: currentEndDate,
-			startInterval: currentStartInterval * 60,
-			increaseIntervalStep: currentIntervalStep * 60,
-			goalIntervalCleanDays: cleanDays,
-			shouldResetCurrentInterval,
-		});
-
+		setQuitPlanSettingsDataEvent(currentSettings);
 		setIsQuitPlanSettingsModalShownEvent(false);
 	};
 
-	useEffect(() => {
-		setCurrentStartDate(startDate);
-	}, [startDate]);
-
-	useEffect(() => {
-		setCurrentEndDate(endDate);
-	}, [endDate]);
-
-	useEffect(() => {
-		setCurrentStartInterval(Math.floor(startInterval / 60));
-	}, [startInterval]);
-
-	useEffect(() => {
-		setCurrentIntervalStep(Math.floor(increaseIntervalStep / 60));
-	}, [increaseIntervalStep]);
-
-	useEffect(() => {
-		setCleanDays(goalIntervalCleanDays);
-	}, [goalIntervalCleanDays]);
-
-	useEffect(() => {
-		const newEndDate = getEndDate({
-			startDate: currentStartDate,
-			interval: currentStartInterval * 60,
-			step: currentIntervalStep * 60,
-			cleanDays,
+	const resetCurrentSettings = () => {
+		setCurrentSettings({
+			shouldAskToIncreaseIntervalOnSuccess,
+			shouldAskToDecreaseIntervalOnFail,
+			successIntervalNumberToPrompt,
+			failIntervalNumberToPrompt,
+			currentInterval: Math.floor(currentInterval / 60),
+			increaseIntervalStep: Math.floor(increaseIntervalStep / 60),
+			decreaseIntervalStep: Math.floor(decreaseIntervalStep / 60),
 		});
+	};
 
-		setCurrentEndDate(newEndDate);
-	}, [currentStartDate, currentIntervalStep, currentStartInterval, cleanDays]);
+	useEffect(() => {
+		if (isQuitPlanSettingsModalShown) {
+			resetCurrentSettings();
+		}
+	}, [isQuitPlanSettingsModalShown]);
 
 	return {
 		isQuitPlanSettingsModalShown,
-		currentStartDate,
-		currentStartInterval,
-		currentIntervalStep,
-		cleanDays,
-		cleanDaysTitleFormatted,
-		endDateFormatted,
-		shouldResetCurrentInterval,
-		handleStartDateChange,
-		handleIntervalChange,
-		handleIntervalStepChange,
-		handleCleanDaysChange,
-		handleToggle,
+		...currentSettings,
+		handleToggleSuccess,
+		handleToggleFail,
+		handleSuccessIntervalNumberToPromptChange,
+		handleFailIntervalNumberToPromptChange,
+		handleIncreaseIntervalStepChange,
+		handleDecreaseIntervalStepChange,
+		handleCurrentIntervalChange,
 		handleCancel,
 		handleConfirm,
 	};

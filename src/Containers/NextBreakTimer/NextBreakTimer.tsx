@@ -6,8 +6,12 @@ import Timer from '../../Components/Timer';
 import useNextBreakTimer from './useNextBreakTimer';
 
 function NextBreakTimer({ className, style }: NextBreakTimerProps) {
-	const { goalDate, isIntervalFinished, title } = useNextBreakTimer();
+	const { goalDate, isIntervalFinished, title, isTrackOnly } =
+		useNextBreakTimer();
 
+	if (isTrackOnly) {
+		return <></>;
+	}
 	return (
 		<div
 			className={clsx(

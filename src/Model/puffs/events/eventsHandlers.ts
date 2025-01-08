@@ -15,13 +15,12 @@ export function restorePuffsModelEventHandler(): PuffsModel {
 }
 
 export function addEntryEventHandler(
-	{ entries, startInterval, increaseIntervalStep, ...state }: PuffsModel,
+	{ entries, startInterval, ...state }: PuffsModel,
 	entry: Entry,
 ): PuffsModel {
 	const { entries: newEntries, currentInterval } = updateEntriesIntervals({
 		entries: [entry, ...entries],
 		startInterval,
-		increaseIntervalStep,
 		intervalSettingsHistory: state.intervalSettingsHistory,
 	});
 
@@ -30,7 +29,6 @@ export function addEntryEventHandler(
 		entries: newEntries,
 		currentInterval,
 		startInterval,
-		increaseIntervalStep,
 	};
 
 	storePuffsModel(newState);
@@ -39,7 +37,7 @@ export function addEntryEventHandler(
 }
 
 export function editEntryEventHandler(
-	{ entries, startInterval, increaseIntervalStep, ...state }: PuffsModel,
+	{ entries, startInterval, ...state }: PuffsModel,
 	entry: Entry,
 ): PuffsModel {
 	const updatedEntries = entries.map((currentEntry) => {
@@ -53,7 +51,6 @@ export function editEntryEventHandler(
 	const { entries: newEntries, currentInterval } = updateEntriesIntervals({
 		entries: updatedEntries,
 		startInterval,
-		increaseIntervalStep,
 		intervalSettingsHistory: state.intervalSettingsHistory,
 	});
 
@@ -62,7 +59,6 @@ export function editEntryEventHandler(
 		entries: newEntries,
 		currentInterval,
 		startInterval,
-		increaseIntervalStep,
 	};
 
 	storePuffsModel(newState);
@@ -71,7 +67,7 @@ export function editEntryEventHandler(
 }
 
 export function deleteEntryEventHandler(
-	{ entries, startInterval, increaseIntervalStep, ...state }: PuffsModel,
+	{ entries, startInterval, ...state }: PuffsModel,
 	entry: Entry,
 ): PuffsModel {
 	const updatedEntries = entries.filter(
@@ -80,7 +76,6 @@ export function deleteEntryEventHandler(
 	const { entries: newEntries, currentInterval } = updateEntriesIntervals({
 		entries: updatedEntries,
 		startInterval,
-		increaseIntervalStep,
 		intervalSettingsHistory: state.intervalSettingsHistory,
 	});
 
@@ -89,7 +84,6 @@ export function deleteEntryEventHandler(
 		entries: newEntries,
 		currentInterval,
 		startInterval,
-		increaseIntervalStep,
 	};
 
 	storePuffsModel(newState);
@@ -133,32 +127,30 @@ export function setGoalIntervalCleanDaysHandler(
 export function setQuitPlanSettingsDataEventHandler(
 	{ intervalSettingsHistory, ...state }: PuffsModel,
 	{
-		startDate,
-		endDate,
-		startInterval,
-		increaseIntervalStep,
-		goalIntervalCleanDays,
-		shouldResetCurrentInterval,
+		shouldAskToDecreaseIntervalOnFail,
+		shouldAskToIncreaseIntervalOnSuccess,
+		currentInterval,
+		successIntervalNumberToPrompt,
+		failIntervalNumberToPrompt,
 	}: SetQuitPlanSettingsDataEventParams,
 ): PuffsModel {
-	const newInterval = shouldResetCurrentInterval
-		? startInterval
-		: state.currentInterval;
+	const isNewInterval = currentInterval !== state.currentInterval;
 
-	const newIntervalSettingsHistory = [
-		{ dateOfChange: new Date(), interval: newInterval, increaseIntervalStep },
-		...intervalSettingsHistory,
-	];
+	const newIntervalSettingsHistory = isNewInterval
+		? [
+				{ dateOfChange: new Date(), interval: currentInterval },
+				...intervalSettingsHistory,
+			]
+		: intervalSettingsHistory;
 
 	const newState = {
 		...state,
-		startDate,
-		endDate,
-		startInterval,
-		currentInterval: newInterval,
+		shouldAskToDecreaseIntervalOnFail,
+		shouldAskToIncreaseIntervalOnSuccess,
+		currentInterval,
+		successIntervalNumberToPrompt,
+		failIntervalNumberToPrompt,
 		intervalSettingsHistory: newIntervalSettingsHistory,
-		increaseIntervalStep,
-		goalIntervalCleanDays,
 	};
 
 	storePuffsModel(newState);
@@ -187,4 +179,20 @@ export function setCurrentDayEventHandler(
 	currentDay: Date | null,
 ): PuffsModel {
 	return { ...state, currentDay };
+}
+
+export function setIsTrackOnlyEventHandler(
+	{ intervalSettingsHistory, ...state }: PuffsModel,
+	isTrackOnly: boolean,
+): PuffsModel {
+	const isNewSettings = isTrackOnly !== state.isTrackOnly;
+	const newIntervalSettingsHistory = isNewSettings
+		? [{ dateOfChange: new Date(), interval: null }, ...intervalSettingsHistory]
+		: intervalSettingsHistory;
+
+	return {
+		...state,
+		isTrackOnly,
+		intervalSettingsHistory: newIntervalSettingsHistory,
+	};
 }

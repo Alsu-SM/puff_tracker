@@ -19,3 +19,4 @@ export const setQuitPlanSettingsDataEvent =
 export const resetPuffsModelEvent = createEvent<void>();
 export const setCurrentEntryEvent = createEvent<Entry | null>();
 export const setCurrentDayEvent = createEvent<Date | null>();
+export const setIsTrackOnlyEvent = createEvent<boolean>();

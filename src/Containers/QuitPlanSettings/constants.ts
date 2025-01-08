@@ -4,5 +4,5 @@ export const MIN_START_INTERVAL: number = 10;
 export const MAX_START_INTERVAL: number = 300;
 export const MIN_INTERVAL_STEP: number = 5;
 export const MAX_INTERVAL_STEP: number = 60;
-export const MIN_CLEAN_DAYS: number = 1;
-export const MAX_CLEAN_DAYS: number = 3;
+export const MAX_NUMBERS_TO_PROMPT: number = 20;
+export const MIN_NUMBERS_TO_PROMPT: number = 2;

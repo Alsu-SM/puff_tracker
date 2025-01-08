@@ -1,12 +1,8 @@
 import { getRandomInt } from '../../Utils/getRandom';
 import getUUIDv7 from '../../Utils/getUUIDv7';
 import {
-	END_DATE_DEFAULT,
-	GOAL_INTERVAL_CLEAN_DAYS_DEFAULT,
-	INCREASE_INTERVAL_STEP_DEFAULT,
 	PUFFS_MODEL_DEFAULT,
 	PUFFS_MODEL_STORAGE_KEY,
-	START_DATE_DEFAULT,
 	START_INTERVAL_DEFAULT,
 } from './constants';
 import {
@@ -18,7 +14,7 @@ import {
 	UpdateEntriesIntervalsParams,
 	UpdateEntriesIntervalsResponse,
 } from './types';
-import { format, isSameDay } from 'date-fns';
+import { format, isAfter, isSameDay } from 'date-fns';
 
 export function storePuffsModel(model: PuffsModel) {
 	localStorage.setItem(PUFFS_MODEL_STORAGE_KEY, JSON.stringify(model));
@@ -26,71 +22,75 @@ export function storePuffsModel(model: PuffsModel) {
 
 export function restorePuffsModel(): PuffsModel {
 	const data = localStorage.getItem(PUFFS_MODEL_STORAGE_KEY);
-
 	if (!data) {
 		return PUFFS_MODEL_DEFAULT;
 	}
 
 	try {
 		const parsedData: PuffsModel = JSON.parse(data);
-		const {
-			entries: entriesValue,
-			intervalSettingsHistory: intervalSettingsHistoryValue = [],
-			startDate: startDateValue,
-			endDate: endDateValue,
-			startInterval: startIntervalValue,
-			currentInterval: currentIntervalValue,
-			increaseIntervalStep: increaseIntervalStepValue,
-			goalIntervalCleanDays: goalIntervalCleanDaysValue,
-		} = parsedData;
-		const startDate = new Date(startDateValue || START_DATE_DEFAULT);
-		const endDate = new Date(endDateValue || END_DATE_DEFAULT);
-		const startInterval = Number(startIntervalValue || START_INTERVAL_DEFAULT);
-		const currentInterval = Number(
-			currentIntervalValue || START_INTERVAL_DEFAULT,
-		);
-		const increaseIntervalStep = Number(
-			increaseIntervalStepValue || INCREASE_INTERVAL_STEP_DEFAULT,
-		);
-		const goalIntervalCleanDays = Number(
-			goalIntervalCleanDaysValue || GOAL_INTERVAL_CLEAN_DAYS_DEFAULT,
-		);
-		const entries = entriesValue.map(
-			({ id, date, puffs, cigarettes, interval, goalInterval }) => ({
-				id,
-				date: new Date(date),
-				puffs: Number(puffs),
-				cigarettes: Number(cigarettes),
-				interval: Number(interval),
-				goalInterval: Number(goalInterval),
-			}),
-		);
+		const model = parsePuffsModelRestoredData(parsedData);
 
-		const intervalSettingsHistory = intervalSettingsHistoryValue.map(
-			({ dateOfChange, interval, increaseIntervalStep }) => ({
-				dateOfChange: new Date(dateOfChange),
-				interval: Number(interval),
-				increaseIntervalStep: Number(increaseIntervalStep),
-			}),
-		);
-
-		return {
-			entries,
-			intervalSettingsHistory,
-			startDate,
-			endDate,
-			startInterval,
-			currentInterval,
-			increaseIntervalStep,
-			goalIntervalCleanDays,
-			currentEntry: null,
-			currentDay: null,
-		};
+		return model;
 	} catch (e) {
 		return PUFFS_MODEL_DEFAULT;
 	}
 }
 
+export function parsePuffsModelRestoredData(
+	parsedData: PuffsModel,
+): PuffsModel {
+	const {
+		entries: entriesValue,
+		intervalSettingsHistory: intervalSettingsHistoryValue = [],
+		startInterval: startIntervalValue,
+		currentInterval: currentIntervalValue,
+		increaseIntervalStep: increaseIntervalStepDefault,
+		decreaseIntervalStep: decreaseIntervalStepDefault,
+		shouldAskToDecreaseIntervalOnFail,
+		shouldAskToIncreaseIntervalOnSuccess,
+		successIntervalNumberToPrompt,
+		failIntervalNumberToPrompt,
+		isTrackOnly,
+	} = parsedData;
+	const startInterval = Number(startIntervalValue || START_INTERVAL_DEFAULT);
+	const currentInterval = Number(
+		currentIntervalValue || START_INTERVAL_DEFAULT,
+	);
+
+	const entries = entriesValue.map(
+		({ id, date, puffs, cigarettes, interval, goalInterval }) => ({
+			id,
+			date: new Date(date),
+			puffs: Number(puffs),
+			cigarettes: Number(cigarettes),
+			interval: Number(interval),
+			goalInterval: Number(goalInterval),
+		}),
+	);
+
+	const intervalSettingsHistory = intervalSettingsHistoryValue.map(
+		({ dateOfChange, interval }) => ({
+			dateOfChange: new Date(dateOfChange),
+			interval: Number(interval),
+		}),
+	);
+
+	return {
+		entries,
+		intervalSettingsHistory,
+		startInterval,
+		currentInterval,
+		increaseIntervalStep: Number(increaseIntervalStepDefault),
+		decreaseIntervalStep: Number(decreaseIntervalStepDefault),
+		currentEntry: null,
+		currentDay: null,
+		shouldAskToDecreaseIntervalOnFail,
+		shouldAskToIncreaseIntervalOnSuccess,
+		successIntervalNumberToPrompt: Number(successIntervalNumberToPrompt),
+		failIntervalNumberToPrompt: Number(failIntervalNumberToPrompt),
+		isTrackOnly,
+	};
+}
 export function getTodayEntries(entries: Entry[]): Entry[] {
 	return entries.filter(({ date }) => isSameDay(date, new Date()));
 }
@@ -140,12 +140,13 @@ export function generateDays({
 	startDate,
 	endDate,
 	startInterval,
-	increaseIntervalStep,
 }: GenerateDaysParams): Day[] {
 	let days: Day[] = [];
 	let currentDate = startDate;
 	let currentBreakInterval = startInterval;
 	let lastDate = startDate;
+
+	let daysCount = 0;
 
 	while (+currentDate < +endDate) {
 		const entry: Entry = {
@@ -180,11 +181,17 @@ export function generateDays({
 		}
 
 		lastDate = currentDate;
-		currentBreakInterval += increaseIntervalStep;
+		daysCount++;
+
+		if (daysCount === getRandomInt(3, 5)) {
+			currentBreakInterval += getRandomInt(5, 10);
+			daysCount = 0;
+		}
 		const nextSessionInterval = getRandomInt(
 			currentBreakInterval * 0.9,
-			(currentBreakInterval + increaseIntervalStep) * 1.1,
+			currentBreakInterval * 1.1,
 		);
+
 		currentDate = new Date(+currentDate + nextSessionInterval * 1000);
 	}
 
@@ -194,34 +201,52 @@ export function generateDays({
 export function updateEntriesIntervals({
 	entries,
 	startInterval,
-	increaseIntervalStep,
 	intervalSettingsHistory,
 }: UpdateEntriesIntervalsParams): UpdateEntriesIntervalsResponse {
 	const sortedEntries = entries
 		.slice()
 		.sort((a, b) => sortEntriesByDate(a, b, true));
 
+	const sortedIntervalHistory = intervalSettingsHistory
+		.slice()
+		.sort((a, b) => +b.dateOfChange - +a.dateOfChange);
+
 	const result: Entry[] = [];
 	let goalInterval = startInterval;
+
+	let currentIntervalSettings = sortedIntervalHistory.pop();
 
 	for (let i = 0; i < sortedEntries.length; i++) {
 		const isFirst = i === 0;
 
 		const currentEntry = sortedEntries[i];
 		const previousEntry = isFirst ? null : sortedEntries[i - 1];
+		const isNewSettings =
+			currentIntervalSettings &&
+			isAfter(currentEntry.date, currentIntervalSettings.dateOfChange);
+		const isTrackOnly =
+			isNewSettings && currentIntervalSettings?.interval === null;
+
+		goalInterval =
+			isNewSettings &&
+			currentIntervalSettings &&
+			currentIntervalSettings.interval
+				? currentIntervalSettings.interval
+				: goalInterval;
 
 		const currentInterval = previousEntry
 			? (+currentEntry.date - +previousEntry.date) / 1000
 			: goalInterval;
 
-		console.log(currentInterval, isFirst, goalInterval);
+		result.push({
+			...currentEntry,
+			interval: currentInterval,
+			goalInterval: isTrackOnly ? null : goalInterval,
+		});
 
-		result.push({ ...currentEntry, interval: currentInterval, goalInterval });
-		const isSuccess = currentInterval >= goalInterval;
-
-		goalInterval = isSuccess
-			? goalInterval + increaseIntervalStep
-			: goalInterval;
+		if (isNewSettings && sortedIntervalHistory.length > 0) {
+			currentIntervalSettings = sortedIntervalHistory.pop();
+		}
 	}
 
 	return { entries: result, currentInterval: goalInterval };

@@ -3,19 +3,21 @@ import { QuitPlanSettingsButtonProps } from './types';
 
 import styles from './QuitPlanSettingsButton.module.css';
 import useQuitPlanSettingsButton from './useQuitPlanSettingsButton';
+import { Check } from '../../Components/Icons';
+import Toggle from '../../Components/Toggle';
 
 function QuitPlanSettingsButton({
 	className,
 	style,
 }: QuitPlanSettingsButtonProps) {
 	const {
-		startDateFormatted,
-		endDateFormatted,
+		isTrackOnly,
 		startIntervalFormatted,
 		currentIntervalFormatted,
-		increaseIntervalStepFormatted,
-		goalIntervalCleanDaysFormatted,
+		shouldAskToDecreaseIntervalOnFail,
+		shouldAskToIncreaseIntervalOnSuccess,
 		handleClick,
+		handleIsTrackOnlyToggle,
 	} = useQuitPlanSettingsButton();
 
 	return (
@@ -25,40 +27,56 @@ function QuitPlanSettingsButton({
 			onClick={handleClick}
 		>
 			<div className={styles.title}>Quit plan settings</div>
-			<div className={styles.settings_item}>
-				<div className={styles.settings_item_title}>Start date: </div>
-				<div className={styles.settings_item_value}>{startDateFormatted}</div>
-			</div>
-			<div className={styles.settings_item}>
-				<div className={styles.settings_item_title}>Estimated end date: </div>
-				<div className={styles.settings_item_value}>{endDateFormatted}</div>
-			</div>
-			<div className={styles.settings_item}>
-				<div className={styles.settings_item_title}>Start interval:</div>
+			<div
+				className={clsx(styles.settings_item, styles.toggle_item, {
+					[styles.toggle_item__off]: !isTrackOnly,
+				})}
+			>
+				<div className={styles.settings_item_title}>I just want to track</div>
 				<div className={styles.settings_item_value}>
-					{startIntervalFormatted}
+					<Toggle
+						checked={isTrackOnly}
+						onClick={handleIsTrackOnlyToggle}
+						className={styles.toggle}
+					/>
 				</div>
 			</div>
-			<div className={styles.settings_item}>
-				<div className={styles.settings_item_title}>
-					Increase interval step:
-				</div>
-				<div className={styles.settings_item_value}>
-					{increaseIntervalStepFormatted}
-				</div>
-			</div>
-			<div className={styles.settings_item}>
-				<div className={styles.settings_item_title}>Current interval:</div>
-				<div className={styles.settings_item_value}>
-					{currentIntervalFormatted}
-				</div>
-			</div>
-			<div className={styles.settings_item}>
-				<div className={styles.settings_item_title}>Goal interval:</div>
-				<div className={styles.settings_item_value}>
-					{goalIntervalCleanDaysFormatted}
-				</div>
-			</div>
+			{!isTrackOnly && (
+				<>
+					<div className={styles.settings_item}>
+						<div className={styles.settings_item_title}>Start interval:</div>
+						<div className={styles.settings_item_value}>
+							{startIntervalFormatted}
+						</div>
+					</div>
+					<div className={styles.settings_item}>
+						<div className={styles.settings_item_title}>Current interval:</div>
+						<div className={styles.settings_item_value}>
+							{currentIntervalFormatted}
+						</div>
+					</div>
+					{shouldAskToIncreaseIntervalOnSuccess && (
+						<div className={styles.settings_item}>
+							<div
+								className={styles.settings_item_title}
+							>{`Ask to increase interval on success`}</div>
+							<div className={styles.settings_item_value}>
+								<Check className={styles.icon} />
+							</div>
+						</div>
+					)}
+					{shouldAskToDecreaseIntervalOnFail && (
+						<div className={styles.settings_item}>
+							<div
+								className={styles.settings_item_title}
+							>{`Ask to decrease interval on fail`}</div>
+							<div className={styles.settings_item_value}>
+								<Check className={styles.icon} />
+							</div>
+						</div>
+					)}
+				</>
+			)}
 		</button>
 	);
 }

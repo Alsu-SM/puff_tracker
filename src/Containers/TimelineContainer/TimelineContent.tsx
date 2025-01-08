@@ -8,6 +8,7 @@ function TimelineContent({ entries }: TimelineContentProps) {
 		puffsCount,
 		cigarettesCount,
 		goalIntervalsSuccessRate,
+		isTrackOnly,
 	} = useTimelineContent(entries);
 
 	return (
@@ -15,9 +16,11 @@ function TimelineContent({ entries }: TimelineContentProps) {
 			<div className={styles.content_row}>
 				{`${entriesCount} breaks: ${puffsCount} puffs, ${cigarettesCount} cigarettes`}
 			</div>
-			<div className={styles.content_row}>
-				{`Intervals success rate: ${goalIntervalsSuccessRate}%`}
-			</div>
+			{!isTrackOnly && (
+				<div className={styles.content_row}>
+					{`Intervals success rate: ${goalIntervalsSuccessRate}%`}
+				</div>
+			)}
 		</div>
 	);
 }

@@ -7,7 +7,7 @@
 	border-radius: 20px;
 	padding: 20px;
 	box-sizing: border-box;
-	background: var(--color-white-secondary-bg);
+	background: rgba(0, 0, 0, 0.2);
 	border: none;
 	color: var(--color-white-secondary);
 	font-size: 14px;
@@ -33,4 +33,23 @@
 .settings_item_value {
 	white-space: nowrap;
 	font-weight: 500;
+}
+
+.icon {
+	height: 18px;
+	width: auto;
+}
+.icon path {
+	stroke: var(--color-white-secondary);
+}
+
+.root .toggle {
+	--track-height: 20px;
+	--track-width: 36px;
+	--thumb-height: var(--track-height);
+	--thumb-width: var(--track-height);
+}
+
+.toggle_item.toggle_item__off {
+	padding-bottom: 10px;
 }

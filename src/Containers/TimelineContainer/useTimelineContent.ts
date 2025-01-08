@@ -1,6 +1,9 @@
-import { Entry } from '../../Model/puffs';
+import { useUnit } from 'effector-react';
+import { $puffsModel, Entry } from '../../Model/puffs';
 
 function useTimelineContent(entries: Entry[]) {
+	const { isTrackOnly } = useUnit($puffsModel);
+
 	const entriesCount = entries.length;
 	const puffsCount = entries.reduce(
 		(puffs: number, entry) => (puffs += entry.puffs),
@@ -11,7 +14,7 @@ function useTimelineContent(entries: Entry[]) {
 		0,
 	);
 	const goalIntervalsCount = entries.reduce((intervals, entry) => {
-		if (entry.interval >= entry.goalInterval) {
+		if (!entry.goalInterval || entry.interval >= entry.goalInterval) {
 			intervals += 1;
 		}
 
@@ -27,6 +30,7 @@ function useTimelineContent(entries: Entry[]) {
 		puffsCount,
 		cigarettesCount,
 		goalIntervalsSuccessRate,
+		isTrackOnly,
 	};
 }
 

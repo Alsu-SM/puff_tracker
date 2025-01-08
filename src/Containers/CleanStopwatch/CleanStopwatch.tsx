@@ -8,6 +8,10 @@ import Stopwatch from '../../Components/Stopwatch';
 function CleanStopwatch({ className, style }: CleanStopwatchProps) {
 	const { date } = useCleanStopwatch();
 
+	if (!date) {
+		return <></>;
+	}
+
 	return (
 		<div className={clsx(styles.root, className)} style={style}>
 			<div className={styles.title}>Clean since:</div>
