@@ -190,9 +190,13 @@ export function setIsTrackOnlyEventHandler(
 		? [{ dateOfChange: new Date(), interval: null }, ...intervalSettingsHistory]
 		: intervalSettingsHistory;
 
-	return {
+	const newState = {
 		...state,
 		isTrackOnly,
 		intervalSettingsHistory: newIntervalSettingsHistory,
 	};
+
+	storePuffsModel(newState);
+
+	return newState;
 }
