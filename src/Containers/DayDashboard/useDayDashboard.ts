@@ -1,24 +1,23 @@
 import { useUnit } from 'effector-react';
 import { $puffsModel } from '../../Model/puffs';
 import {
-	getCurrentDay,
-	getLastEntryByDays,
+	getLastEntry,
 	getLastEntryDate,
+	getTodayEntries,
 } from '../../Model/puffs/utils';
 import { setIsAddEntryModalShownEvent } from '../../Model/ui';
 import { renderContentLeft, renderContentRight } from './renders';
 import { useState } from 'react';
 
 function useDayDashboard() {
-	const { days, currentInterval } = useUnit($puffsModel);
+	const { entries, currentInterval } = useUnit($puffsModel);
 
 	const [isWarningModalShown, setIsWarningModalShown] =
 		useState<boolean>(false);
 
-	const currentDay = getCurrentDay(days);
-	const entries = currentDay?.entries || [];
-	const currentDayCount = entries.length;
-	const lastEntry = getLastEntryByDays(days);
+	const todayEntries = getTodayEntries(entries);
+	const currentDayCount = todayEntries.length;
+	const lastEntry = getLastEntry(todayEntries);
 	const { time, date } = getLastEntryDate(lastEntry);
 
 	const isAllowed = lastEntry

@@ -1,15 +1,12 @@
-import { isSameDay } from 'date-fns';
 import {
-	Day,
 	Entry,
 	PuffsModel,
 	SetQuitPlanSettingsDataEventParams,
 } from '../types';
 import {
-	getCurrentDay,
-	getDay,
 	restorePuffsModel,
 	storePuffsModel,
+	updateEntriesIntervals,
 } from '../utils';
 
 export function restorePuffsModelEventHandler(): PuffsModel {
@@ -18,40 +15,22 @@ export function restorePuffsModelEventHandler(): PuffsModel {
 }
 
 export function addEntryEventHandler(
-	{ days, currentInterval, ...state }: PuffsModel,
+	{ entries, startInterval, increaseIntervalStep, ...state }: PuffsModel,
 	entry: Entry,
 ): PuffsModel {
-	const currentDay = getCurrentDay(days);
+	const { entries: newEntries, currentInterval } = updateEntriesIntervals({
+		entries: [entry, ...entries],
+		startInterval,
+		increaseIntervalStep,
+		intervalSettingsHistory: state.intervalSettingsHistory,
+	});
 
-	if (currentDay) {
-		const newDays = days.map((day: Day) => {
-			if (isSameDay(day.date, entry.date)) {
-				return { ...day, entries: [entry, ...day.entries] };
-			}
-
-			return day;
-		});
-
-		const newState = {
-			...state,
-			days: newDays,
-			currentInterval: currentInterval + state.increaseIntervalStep,
-		};
-		storePuffsModel(newState);
-
-		return newState;
-	}
-
-	const newDay: Day = {
-		date: new Date(),
-		entries: [entry],
-	};
-
-	const newDays = [newDay, ...days];
 	const newState = {
 		...state,
-		days: newDays,
-		currentInterval: currentInterval + state.increaseIntervalStep,
+		entries: newEntries,
+		currentInterval,
+		startInterval,
+		increaseIntervalStep,
 	};
 
 	storePuffsModel(newState);
@@ -60,76 +39,64 @@ export function addEntryEventHandler(
 }
 
 export function editEntryEventHandler(
-	{ days, ...state }: PuffsModel,
+	{ entries, startInterval, increaseIntervalStep, ...state }: PuffsModel,
 	entry: Entry,
 ): PuffsModel {
-	const currentDay = getDay(days, entry.date);
+	const updatedEntries = entries.map((currentEntry) => {
+		if (currentEntry.id === entry.id) {
+			return entry;
+		}
 
-	if (currentDay) {
-		const newDays = days.map((day: Day) => {
-			if (isSameDay(day.date, entry.date)) {
-				return {
-					...day,
-					entries: day.entries.map((currentEntry) => {
-						if (currentEntry.id === entry.id) {
-							return entry;
-						}
+		return currentEntry;
+	});
 
-						return currentEntry;
-					}),
-				};
-			}
+	const { entries: newEntries, currentInterval } = updateEntriesIntervals({
+		entries: updatedEntries,
+		startInterval,
+		increaseIntervalStep,
+		intervalSettingsHistory: state.intervalSettingsHistory,
+	});
 
-			return day;
-		});
+	const newState = {
+		...state,
+		entries: newEntries,
+		currentInterval,
+		startInterval,
+		increaseIntervalStep,
+	};
 
-		const newState = {
-			...state,
-			days: newDays,
-		};
-		storePuffsModel(newState);
+	storePuffsModel(newState);
 
-		return newState;
-	}
-
-	return { ...state, days };
+	return newState;
 }
+
 export function deleteEntryEventHandler(
-	{ days, ...state }: PuffsModel,
+	{ entries, startInterval, increaseIntervalStep, ...state }: PuffsModel,
 	entry: Entry,
 ): PuffsModel {
-	const currentDay = getDay(days, entry.date);
-	if (currentDay) {
-		const isEmpty =
-			currentDay.entries.filter((currentEntry) => currentEntry.id !== entry.id)
-				.length === 0;
+	const updatedEntries = entries.filter(
+		(currentEntry) => currentEntry.id !== entry.id,
+	);
+	const { entries: newEntries, currentInterval } = updateEntriesIntervals({
+		entries: updatedEntries,
+		startInterval,
+		increaseIntervalStep,
+		intervalSettingsHistory: state.intervalSettingsHistory,
+	});
 
-		const newDays = isEmpty
-			? days.filter((day: Day) => !isSameDay(day.date, currentDay.date))
-			: days.map((day: Day) => {
-					if (isSameDay(day.date, entry.date)) {
-						return {
-							...day,
-							entries: day.entries.filter(
-								(currentEntry) => currentEntry.id !== entry.id,
-							),
-						};
-					}
+	const newState = {
+		...state,
+		entries: newEntries,
+		currentInterval,
+		startInterval,
+		increaseIntervalStep,
+	};
 
-					return day;
-				});
+	storePuffsModel(newState);
 
-		const newState = {
-			...state,
-			days: newDays,
-		};
-		storePuffsModel(newState);
-
-		return newState;
-	}
-
-	return { ...state, days };
+	return newState;
 }
+
 export function setStartDateEventHandler(
 	state: PuffsModel,
 	startDate: Date,
@@ -164,7 +131,7 @@ export function setGoalIntervalCleanDaysHandler(
 }
 
 export function setQuitPlanSettingsDataEventHandler(
-	state: PuffsModel,
+	{ intervalSettingsHistory, ...state }: PuffsModel,
 	{
 		startDate,
 		endDate,
@@ -174,14 +141,22 @@ export function setQuitPlanSettingsDataEventHandler(
 		shouldResetCurrentInterval,
 	}: SetQuitPlanSettingsDataEventParams,
 ): PuffsModel {
+	const newInterval = shouldResetCurrentInterval
+		? startInterval
+		: state.currentInterval;
+
+	const newIntervalSettingsHistory = [
+		{ dateOfChange: new Date(), interval: newInterval, increaseIntervalStep },
+		...intervalSettingsHistory,
+	];
+
 	const newState = {
 		...state,
 		startDate,
 		endDate,
 		startInterval,
-		currentInterval: shouldResetCurrentInterval
-			? startInterval
-			: state.currentInterval,
+		currentInterval: newInterval,
+		intervalSettingsHistory: newIntervalSettingsHistory,
 		increaseIntervalStep,
 		goalIntervalCleanDays,
 	};

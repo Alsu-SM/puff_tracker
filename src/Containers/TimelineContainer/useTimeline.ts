@@ -7,9 +7,11 @@ import {
 	renderTimelineDetailedContent,
 } from './renders';
 import { setIsAddManualEntryModalShownEvent } from '../../Model/ui';
+import { getDaysByEntries } from '../../Model/puffs/utils';
 
 function useTimeline() {
-	const { days } = useUnit($puffsModel);
+	const { entries } = useUnit($puffsModel);
+	const days = getDaysByEntries(entries);
 
 	const items: TimelineItem[] = days.map((day) => {
 		return {

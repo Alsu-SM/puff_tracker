@@ -1,13 +1,13 @@
 import { useUnit } from 'effector-react';
 import { $puffsModel } from '../../Model/puffs';
-import { getLastEntryByDays } from '../../Model/puffs/utils';
 import { useEffect, useRef, useState } from 'react';
+import { getLastEntry } from '../../Model/puffs/utils';
 
 function useNextBreakTimer() {
-	const { days, currentInterval } = useUnit($puffsModel);
+	const { entries, currentInterval } = useUnit($puffsModel);
 	const [isIntervalFinished, setIsIntervalFinished] = useState<boolean>();
 
-	const lastEntry = getLastEntryByDays(days);
+	const lastEntry = getLastEntry(entries);
 
 	const goalDate = lastEntry
 		? new Date(+lastEntry.date + currentInterval * 1000)

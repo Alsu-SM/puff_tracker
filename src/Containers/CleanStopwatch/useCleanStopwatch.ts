@@ -1,11 +1,11 @@
 import { useUnit } from 'effector-react';
 import { $puffsModel } from '../../Model/puffs';
-import { getLastEntryByDays } from '../../Model/puffs/utils';
+import { getLastEntry } from '../../Model/puffs/utils';
 
 function useCleanStopwatch() {
-	const { days, startDate } = useUnit($puffsModel);
+	const { entries, startDate } = useUnit($puffsModel);
 
-	const lastEntry = getLastEntryByDays(days);
+	const lastEntry = getLastEntry(entries);
 	const date = lastEntry?.date || startDate;
 
 	return { date };

@@ -29,12 +29,13 @@ export function parseBackup(data: string): Promise<BackupData> {
 			}: BackupData = JSON.parse(data);
 			const date = new Date(dateValue);
 			const {
-				days: daysValue,
+				entries: entriesValue,
 				startDate: startDateValue,
 				endDate: endDateValue,
 				startInterval: startIntervalValue,
 				currentInterval: currentIntervalValue,
 				increaseIntervalStep: increaseIntervalStepValue,
+				intervalSettingsHistory: intervalSettingsHistoryValue,
 				goalIntervalCleanDays: goalIntervalCleanDaysValue,
 			} = puffsModelValue;
 			const startDate = new Date(startDateValue);
@@ -44,22 +45,23 @@ export function parseBackup(data: string): Promise<BackupData> {
 			const increaseIntervalStep = Number(increaseIntervalStepValue);
 			const goalIntervalCleanDays = Number(goalIntervalCleanDaysValue);
 
-			const days = daysValue.map(
-				({ date: currentDateValue, entries: entriesValue }) => {
-					const date = new Date(currentDateValue);
-					const entries = entriesValue.map(
-						({ id, date, puffs, cigarettes, interval, goalInterval }) => ({
-							id,
-							date: new Date(date),
-							puffs: Number(puffs),
-							cigarettes: Number(cigarettes),
-							interval: Number(interval),
-							goalInterval: Number(goalInterval),
-						}),
-					);
+			const entries = entriesValue.map(
+				({ id, date, puffs, cigarettes, interval, goalInterval }) => ({
+					id,
+					date: new Date(date),
+					puffs: Number(puffs),
+					cigarettes: Number(cigarettes),
+					interval: Number(interval),
+					goalInterval: Number(goalInterval),
+				}),
+			);
 
-					return { date, entries };
-				},
+			const intervalSettingsHistory = intervalSettingsHistoryValue.map(
+				({ dateOfChange, interval, increaseIntervalStep }) => ({
+					dateOfChange: new Date(dateOfChange),
+					interval: Number(interval),
+					increaseIntervalStep: Number(increaseIntervalStep),
+				}),
 			);
 
 			const puffsModel: PuffsModel = {
@@ -69,7 +71,8 @@ export function parseBackup(data: string): Promise<BackupData> {
 				currentInterval,
 				increaseIntervalStep,
 				goalIntervalCleanDays,
-				days,
+				entries,
+				intervalSettingsHistory,
 				currentDay: null,
 				currentEntry: null,
 			};

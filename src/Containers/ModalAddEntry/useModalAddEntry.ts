@@ -3,10 +3,10 @@ import { $uiModel, setIsAddEntryModalShownEvent } from '../../Model/ui';
 import { useEffect, useState } from 'react';
 import { $puffsModel, addEntryEvent, Entry } from '../../Model/puffs';
 import getUUIDv7 from '../../Utils/getUUIDv7';
-import { getLastEntryByDays } from '../../Model/puffs/utils';
+import { getLastEntry } from '../../Model/puffs/utils';
 
 function useModalAddEntry() {
-	const { days, currentInterval } = useUnit($puffsModel);
+	const { entries, currentInterval } = useUnit($puffsModel);
 	const { isAddEntryModalShown } = useUnit($uiModel);
 
 	const [startDate, setStartDate] = useState<Date>(new Date());
@@ -14,7 +14,7 @@ function useModalAddEntry() {
 	const [puffs, setPuffs] = useState<number>(0);
 
 	const isConfirmDisabled = !cigarettes && !puffs;
-	const lastEntry = getLastEntryByDays(days);
+	const lastEntry = getLastEntry(entries);
 
 	const resetForm = () => {
 		setStartDate(new Date());

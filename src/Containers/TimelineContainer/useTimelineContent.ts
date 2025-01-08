@@ -17,7 +17,7 @@ function useTimelineContent(entries: Entry[]) {
 
 		return intervals;
 	}, 0);
-
+	console.log(entries, goalIntervalsCount);
 	const goalIntervalsSuccessRate = Math.floor(
 		(goalIntervalsCount / entriesCount) * 100,
 	);

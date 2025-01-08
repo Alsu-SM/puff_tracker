@@ -8,7 +8,7 @@ export type Entry = {
 	date: Date;
 	puffs: number;
 	cigarettes: number;
-	interval: number; // in seconds
+	interval: number; // interval between this and previous smoke break in seconds
 	goalInterval: number; // in seconds
 };
 
@@ -17,8 +17,14 @@ export type Day = {
 	entries: Entry[];
 };
 
+export type IntervalSettings = {
+	dateOfChange: Date;
+	interval: number;
+	increaseIntervalStep: number;
+};
+
 export type PuffsModel = {
-	days: Day[];
+	entries: Entry[];
 	startDate: Date;
 	endDate: Date;
 	startInterval: number; // in seconds;
@@ -27,6 +33,7 @@ export type PuffsModel = {
 	goalIntervalCleanDays: number; // in days
 	currentDay: Date | null; // for manual entry
 	currentEntry: Entry | null; // for edit
+	intervalSettingsHistory: IntervalSettings[];
 };
 
 export type GetLastEntryDateResponse = {
@@ -48,4 +55,15 @@ export type SetQuitPlanSettingsDataEventParams = {
 	increaseIntervalStep: number;
 	goalIntervalCleanDays: number;
 	shouldResetCurrentInterval: boolean;
+};
+
+export type UpdateEntriesIntervalsParams = {
+	entries: Entry[];
+	startInterval: number;
+	increaseIntervalStep: number;
+	intervalSettingsHistory: IntervalSettings[];
+};
+export type UpdateEntriesIntervalsResponse = {
+	entries: Entry[];
+	currentInterval: number;
 };

@@ -24,7 +24,8 @@ export const ENTRY_DEFAULT: Entry = {
 };
 
 export const PUFFS_MODEL_DEFAULT: PuffsModel = {
-	days: [],
+	entries: [],
+	intervalSettingsHistory: [],
 	startDate: START_DATE_DEFAULT,
 	endDate: END_DATE_DEFAULT,
 	startInterval: START_INTERVAL_DEFAULT,

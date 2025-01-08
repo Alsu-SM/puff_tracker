@@ -75,6 +75,7 @@ export function formatTime(
 export function formatTimeToString(
 	delta: number,
 	shouldAddLeadingZero: boolean = true,
+	shouldUseShortFormat: boolean = false,
 ): string {
 	const {
 		days,
@@ -92,14 +93,55 @@ export function formatTimeToString(
 	const isMinutesPlural = Number(minutes) > 1;
 	const isSecondsPlural = Number(seconds) > 1;
 
-	const daysLabel = isDaysPlural ? 'days' : 'day';
-	const hoursLabel = isHoursPlural ? 'hours' : 'hour';
-	const minutesLabel = isMinutesPlural ? 'minutes' : 'minute';
-	const secondsLabel = isSecondsPlural ? 'seconds' : 'second';
+	const daysLabel = shouldUseShortFormat ? ':' : isDaysPlural ? 'days' : 'day';
+	const hoursLabel = shouldUseShortFormat
+		? ':'
+		: isHoursPlural
+			? 'hours'
+			: 'hour';
+	const minutesLabel = shouldUseShortFormat
+		? ':'
+		: isMinutesPlural
+			? 'minutes'
+			: 'minute';
+	const secondsLabel = shouldUseShortFormat
+		? ':'
+		: isSecondsPlural
+			? 'seconds'
+			: 'second';
 
 	return `${hasDays ? `${days} ${daysLabel} ` : ''}${
 		hasHours ? `${hours} ${hoursLabel} ` : ''
 	}${hasMinutes ? `${minutes} ${minutesLabel} ` : ''}${
 		hasSeconds ? `${seconds} ${secondsLabel} ` : ''
+	}`;
+}
+
+export function formatTimeToStringShort(
+	delta: number,
+	shouldAddLeadingZero: boolean = true,
+): string {
+	const {
+		days,
+		hours,
+		minutes,
+		seconds,
+		hasDays,
+		hasHours,
+		hasMinutes,
+		hasSeconds,
+		isDaysSeparatorShown,
+		isHoursSeparatorShown,
+		isMinutesSeparatorShown,
+	} = formatTime(delta, shouldAddLeadingZero);
+
+	const daysLabel = isDaysSeparatorShown ? ':' : '';
+	const hoursLabel = isHoursSeparatorShown ? ':' : '';
+	const minutesLabel = isMinutesSeparatorShown ? ':' : '';
+
+	return `${hasDays ? `${days} ${daysLabel} ` : ''}${
+		hasHours ? `${hours} ${hoursLabel} ` : ''
+	}${hasMinutes ? `${minutes} ${minutesLabel} ` : ''}${
+		hasSeconds ? `${seconds}` : '00'
 	}`;
 }

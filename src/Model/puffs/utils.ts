@@ -15,6 +15,8 @@ import {
 	GenerateDaysParams,
 	GetLastEntryDateResponse,
 	PuffsModel,
+	UpdateEntriesIntervalsParams,
+	UpdateEntriesIntervalsResponse,
 } from './types';
 import { format, isSameDay } from 'date-fns';
 
@@ -32,7 +34,8 @@ export function restorePuffsModel(): PuffsModel {
 	try {
 		const parsedData: PuffsModel = JSON.parse(data);
 		const {
-			days: daysValue,
+			entries: entriesValue,
+			intervalSettingsHistory: intervalSettingsHistoryValue = [],
 			startDate: startDateValue,
 			endDate: endDateValue,
 			startInterval: startIntervalValue,
@@ -52,30 +55,33 @@ export function restorePuffsModel(): PuffsModel {
 		const goalIntervalCleanDays = Number(
 			goalIntervalCleanDaysValue || GOAL_INTERVAL_CLEAN_DAYS_DEFAULT,
 		);
+		const entries = entriesValue.map(
+			({ id, date, puffs, cigarettes, interval, goalInterval }) => ({
+				id,
+				date: new Date(date),
+				puffs: Number(puffs),
+				cigarettes: Number(cigarettes),
+				interval: Number(interval),
+				goalInterval: Number(goalInterval),
+			}),
+		);
 
-		const days = daysValue.map(({ date: dateValue, entries: entriesValue }) => {
-			const date = new Date(dateValue);
-			const entries = entriesValue.map(
-				({ id, date, puffs, cigarettes, interval, goalInterval }) => ({
-					id,
-					date: new Date(date),
-					puffs: Number(puffs),
-					cigarettes: Number(cigarettes),
-					interval: Number(interval),
-					goalInterval: Number(goalInterval),
-				}),
-			);
-
-			return { date, entries };
-		});
+		const intervalSettingsHistory = intervalSettingsHistoryValue.map(
+			({ dateOfChange, interval, increaseIntervalStep }) => ({
+				dateOfChange: new Date(dateOfChange),
+				interval: Number(interval),
+				increaseIntervalStep: Number(increaseIntervalStep),
+			}),
+		);
 
 		return {
+			entries,
+			intervalSettingsHistory,
 			startDate,
 			endDate,
 			startInterval,
 			currentInterval,
 			increaseIntervalStep,
-			days,
 			goalIntervalCleanDays,
 			currentEntry: null,
 			currentDay: null,
@@ -85,12 +91,20 @@ export function restorePuffsModel(): PuffsModel {
 	}
 }
 
-export function getCurrentDay(days: Day[]): Day | null {
-	return days.find(({ date }) => isSameDay(date, new Date())) || null;
+export function getTodayEntries(entries: Entry[]): Entry[] {
+	return entries.filter(({ date }) => isSameDay(date, new Date()));
 }
 
 export function getDay(days: Day[], currentDate: Date): Day | null {
 	return days.find(({ date }) => isSameDay(date, currentDate)) || null;
+}
+
+export function sortEntriesByDate(
+	entryA: Entry,
+	entryB: Entry,
+	isAsc: boolean = false,
+): number {
+	return isAsc ? +entryA.date - +entryB.date : +entryB.date - +entryA.date;
 }
 
 export function getLastEntry(entries: Entry[]): Entry | null {
@@ -98,17 +112,7 @@ export function getLastEntry(entries: Entry[]): Entry | null {
 		return null;
 	}
 
-	return entries.sort((a, b) => +b.date - +a.date)[0];
-}
-
-export function getLastEntryByDays(days: Day[]): Entry | null {
-	if (!days.length) {
-		return null;
-	}
-
-	const lastDay = days.sort((a, b) => +b.date - +a.date)[0];
-
-	return getLastEntry(lastDay.entries);
+	return entries.sort(sortEntriesByDate)[0];
 }
 
 export function getLastEntryDate(
@@ -185,4 +189,55 @@ export function generateDays({
 	}
 
 	return days;
+}
+
+export function updateEntriesIntervals({
+	entries,
+	startInterval,
+	increaseIntervalStep,
+	intervalSettingsHistory,
+}: UpdateEntriesIntervalsParams): UpdateEntriesIntervalsResponse {
+	const sortedEntries = entries
+		.slice()
+		.sort((a, b) => sortEntriesByDate(a, b, true));
+
+	const result: Entry[] = [];
+	let goalInterval = startInterval;
+
+	for (let i = 0; i < sortedEntries.length; i++) {
+		const isFirst = i === 0;
+
+		const currentEntry = sortedEntries[i];
+		const previousEntry = isFirst ? null : sortedEntries[i - 1];
+
+		const currentInterval = previousEntry
+			? (+currentEntry.date - +previousEntry.date) / 1000
+			: goalInterval;
+
+		console.log(currentInterval, isFirst, goalInterval);
+
+		result.push({ ...currentEntry, interval: currentInterval, goalInterval });
+		const isSuccess = currentInterval >= goalInterval;
+
+		goalInterval = isSuccess
+			? goalInterval + increaseIntervalStep
+			: goalInterval;
+	}
+
+	return { entries: result, currentInterval: goalInterval };
+}
+
+export function getDaysByEntries(entries: Entry[]): Day[] {
+	const daysMap = new Map<string, Day>();
+	entries.forEach((entry) => {
+		const dateFormatted = format(entry.date, 'dd.MM.yyyy');
+		const day = daysMap.get(dateFormatted);
+
+		const newDay = day
+			? { ...day, entries: [entry, ...day.entries] }
+			: { date: entry.date, entries: [entry] };
+		daysMap.set(dateFormatted, newDay);
+	});
+
+	return Array.from(daysMap).map(([_, day]) => day);
 }

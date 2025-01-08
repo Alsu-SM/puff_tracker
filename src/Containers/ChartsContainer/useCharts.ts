@@ -1,9 +1,12 @@
 import { useUnit } from 'effector-react';
 import { $puffsModel } from '../../Model/puffs';
 import { DataItem, SeriesItem } from '../../Components/LineChart/types';
+import { getDaysByEntries } from '../../Model/puffs/utils';
 
 function useCharts() {
-	const { days } = useUnit($puffsModel);
+	const { entries } = useUnit($puffsModel);
+	const days = getDaysByEntries(entries);
+
 	const sortedDays = days.sort((a, b) => +a.date - +b.date);
 
 	const itemsEntries: DataItem[] = sortedDays.map((day) => ({
