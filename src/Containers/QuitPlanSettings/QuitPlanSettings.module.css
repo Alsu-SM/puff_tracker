@@ -54,7 +54,7 @@
 }
 
 .footer {
-	background: url('./gifs/g3.gif') no-repeat;
+	background: url('/gifs/g3.gif') no-repeat;
 	background-size: cover;
 	background-position: bottom;
 	width: 100%;
