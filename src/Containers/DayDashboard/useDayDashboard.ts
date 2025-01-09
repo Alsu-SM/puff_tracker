@@ -10,7 +10,7 @@ import { renderContentLeft, renderContentRight } from './renders';
 import { useState } from 'react';
 
 function useDayDashboard() {
-	const { entries, currentInterval } = useUnit($puffsModel);
+	const { entries, currentInterval, isTrackOnly } = useUnit($puffsModel);
 
 	const [isWarningModalShown, setIsWarningModalShown] =
 		useState<boolean>(false);
@@ -25,7 +25,7 @@ function useDayDashboard() {
 		: true;
 
 	const handleAddEntry = () => {
-		if (isAllowed) {
+		if (isAllowed || isTrackOnly) {
 			setIsAddEntryModalShownEvent(true);
 
 			return;
