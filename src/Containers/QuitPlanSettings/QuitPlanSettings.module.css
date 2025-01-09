@@ -115,3 +115,10 @@
 .settings::-webkit-scrollbar {
 	display: none;
 }
+
+.root .toggle {
+	--track-height: 20px;
+	--track-width: 38px;
+	--thumb-height: var(--track-height);
+	--thumb-width: var(--track-height);
+}

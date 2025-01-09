@@ -28,7 +28,6 @@ function ModalAddEntry({ className }: ModalAddEntryProps) {
 		>
 			<div className={styles.content}>
 				<div className={styles.title}>Smoke break</div>
-				<Stopwatch startDate={startDate} className={styles.stopwatch} />
 				<div className={styles.counter_rows}>
 					<div className={styles.counter_row}>
 						<div className={styles.counter_row_title}>Cigarettes smoked:</div>

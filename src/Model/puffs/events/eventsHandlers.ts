@@ -182,17 +182,21 @@ export function setCurrentDayEventHandler(
 }
 
 export function setIsTrackOnlyEventHandler(
-	{ intervalSettingsHistory, ...state }: PuffsModel,
+	{ intervalSettingsHistory, currentInterval, ...state }: PuffsModel,
 	isTrackOnly: boolean,
 ): PuffsModel {
-	const isNewSettings = isTrackOnly !== state.isTrackOnly;
-	const newIntervalSettingsHistory = isNewSettings
-		? [{ dateOfChange: new Date(), interval: null }, ...intervalSettingsHistory]
-		: intervalSettingsHistory;
+	const newIntervalSettingsHistory = [
+		{
+			dateOfChange: new Date(),
+			interval: isTrackOnly ? null : currentInterval,
+		},
+		...intervalSettingsHistory,
+	];
 
 	const newState = {
 		...state,
 		isTrackOnly,
+		currentInterval,
 		intervalSettingsHistory: newIntervalSettingsHistory,
 	};
 

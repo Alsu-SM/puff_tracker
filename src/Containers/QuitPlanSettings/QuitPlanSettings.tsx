@@ -60,10 +60,13 @@ function QuitPlanSettings({ className }: QuitPlanSettingsProps) {
 							<div className={styles.toggle_title}>
 								Prompt to increase interval on X successful breaks:{' '}
 							</div>
-							<Toggle
-								checked={shouldAskToIncreaseIntervalOnSuccess}
-								onClick={handleToggleSuccess}
-							/>
+							<div className={styles.toggle_wrapper}>
+								<Toggle
+									checked={shouldAskToIncreaseIntervalOnSuccess}
+									onClick={handleToggleSuccess}
+									className={styles.toggle}
+								/>
+							</div>
 						</div>
 						{shouldAskToIncreaseIntervalOnSuccess && (
 							<div className={styles.interval_slider}>
@@ -101,10 +104,13 @@ function QuitPlanSettings({ className }: QuitPlanSettingsProps) {
 							<div className={styles.toggle_title}>
 								Prompt to decrease interval on X failed breaks:
 							</div>
-							<Toggle
-								checked={shouldAskToDecreaseIntervalOnFail}
-								onClick={handleToggleFail}
-							/>
+							<div className={styles.toggle_wrapper}>
+								<Toggle
+									checked={shouldAskToDecreaseIntervalOnFail}
+									onClick={handleToggleFail}
+									className={styles.toggle}
+								/>
+							</div>
 						</div>
 						{shouldAskToDecreaseIntervalOnFail && (
 							<div className={styles.interval_slider}>
