@@ -4,14 +4,12 @@ import { ModalAddEntryProps } from './types';
 import styles from './ModalAddEntry.module.css';
 import useModalAddEntry from './useModalAddEntry';
 import Sheet from '../../Components/Sheet';
-import Stopwatch from '../../Components/Stopwatch';
 import InputCounter from '../../Components/InputCounter';
 import Button from '../../Components/Button';
 
 function ModalAddEntry({ className }: ModalAddEntryProps) {
 	const {
 		isAddEntryModalShown,
-		startDate,
 		cigarettes,
 		puffs,
 		isConfirmDisabled,
