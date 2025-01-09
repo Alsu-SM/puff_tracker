@@ -11,3 +11,4 @@ export { default as TrendDown } from './TrendDown';
 export { default as Download } from './Download';
 export { default as Bug } from './Bug';
 export { default as ArrowRight } from './ArrowRight';
+export { default as Reload } from './Reload';

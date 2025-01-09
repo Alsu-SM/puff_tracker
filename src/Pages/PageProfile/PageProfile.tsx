@@ -8,6 +8,7 @@ import QuitPlanSettingsButton from '../../Containers/QuitPlanSettingsButton';
 import ClearDataButton from '../../Containers/ClearDataButton';
 import BackupSection from '../../Containers/BackupSection';
 import p_json from '../../../package.json';
+import ButtonReload from '../../Components/ButtonReload';
 
 function PageProfile({ className, style }: PageProfileProps) {
 	return (
@@ -17,6 +18,7 @@ function PageProfile({ className, style }: PageProfileProps) {
 			<BackupSection />
 			<ClearDataButton />
 			<QuitPlanSettings />
+			<ButtonReload className={styles.button_reload} />
 			<div className={styles.version}>{`v.${p_json.version}`}</div>
 		</div>
 	);

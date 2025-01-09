@@ -1,0 +1,14 @@
+.root {
+	width: 40px;
+	height: 40px;
+	padding: 6px;
+	box-sizing: border-box;
+	opacity: 0.6;
+}
+.root .icon {
+	width: 100%;
+	height: auto;
+}
+.root .icon path {
+	stroke: var(--color-white-secondary);
+}
