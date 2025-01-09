@@ -61,7 +61,7 @@
 .image_wrapper {
 	flex: 1;
 	overflow: hidden;
-	background: url('./gifs/g1.gif') no-repeat;
+	background: url('gifs/g1.gif') no-repeat;
 	background-size: 100%;
 	background-position: center;
 	opacity: 0.05;
