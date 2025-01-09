@@ -5,10 +5,15 @@
 	gap: 0;
 }
 .settings {
-	padding: 20px;
 	display: flex;
 	flex-direction: column;
-	gap: 20px;
+	flex: 1;
+	overflow: scroll;
+	padding-bottom: 20px;
+}
+
+.settings::-webkit-scrollbar {
+	display: none;
 }
 
 .version {

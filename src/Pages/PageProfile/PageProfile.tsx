@@ -14,9 +14,12 @@ function PageProfile({ className, style }: PageProfileProps) {
 	return (
 		<div className={clsx(styles.root, 'page', className)} style={style}>
 			<ProfileName />
-			<QuitPlanSettingsButton />
-			<BackupSection />
-			<ClearDataButton />
+			<div className={styles.settings}>
+				<QuitPlanSettingsButton />
+				<BackupSection />
+				<ClearDataButton />
+			</div>
+
 			<QuitPlanSettings />
 			<ButtonReload className={styles.button_reload} />
 			<div className={styles.version}>{`v.${p_json.version}`}</div>
