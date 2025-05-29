@@ -3,7 +3,7 @@ import styles from './TimelineContainer.module.css';
 import useTimelineDetailedContentItem from './useTimelineDetailedContentItem';
 
 function TimelineDetailedContentItem({ entry }: TimelineContentItemProps) {
-	const { formattedDate, cigarettes, puffs, handleRowClick } =
+	const { formattedDate, cigarettes, puffs, intervalTime, handleRowClick } =
 		useTimelineDetailedContentItem(entry);
 
 	return (
@@ -15,7 +15,8 @@ function TimelineDetailedContentItem({ entry }: TimelineContentItemProps) {
 			<div className={styles.content}>
 				<div
 					className={styles.content_item}
-				>{`${formattedDate}: ${puffs} puffs, ${cigarettes} cigarettes`}</div>
+				>{`${formattedDate}: ${puffs} puffs, ${cigarettes} cigarettes; `}</div>
+				<div className={styles.content_item}>{intervalTime}</div>
 			</div>
 		</button>
 	);

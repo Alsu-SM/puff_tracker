@@ -115,6 +115,14 @@ export function getLastEntry(entries: Entry[]): Entry | null {
 	return entries.sort(sortEntriesByDate)[0];
 }
 
+export function getFirstEntry(entries: Entry[]): Entry | null {
+	if (!entries.length) {
+		return null;
+	}
+
+	return entries.sort((a, b) => sortEntriesByDate(a, b, true))[0];
+}
+
 export function getLastEntryDate(
 	entry: Entry | null,
 ): GetLastEntryDateResponse {
