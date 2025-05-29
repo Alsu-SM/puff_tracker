@@ -13,9 +13,9 @@ function TimelineDetailedContentItem({ entry }: TimelineContentItemProps) {
 			key={entry.id}
 		>
 			<div className={styles.content}>
-				<div
-					className={styles.content_item}
-				>{`${formattedDate}: ${puffs} puffs, ${cigarettes} cigarettes; `}</div>
+				<div className={styles.content_item}>{`${formattedDate}: ${
+					puffs ? puffs + ' puffs' : ''
+				} ${cigarettes ? cigarettes + ' cig-s' : ''} `}</div>
 				<div className={styles.content_item}>{intervalTime}</div>
 			</div>
 		</button>
